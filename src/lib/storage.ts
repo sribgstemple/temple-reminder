@@ -15,7 +15,7 @@ let _db: IDBPDatabase<AppDB> | null = null
 
 async function getDB(): Promise<IDBPDatabase<AppDB>> {
   if (_db) return _db
-  _db = await openDB<AppDB>('sbgst-reminder-studio', 1, {
+  _db = await openDB<AppDB>('temple-reminder', 1, {
     upgrade(db) {
       const store = db.createObjectStore('sessions', { keyPath: 'id' })
       store.createIndex('byCreatedAt', 'createdAt')
