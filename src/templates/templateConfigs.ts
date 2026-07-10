@@ -31,8 +31,8 @@ export const TEMPLATES: TemplateConfig[] = [
       gridBorderColor: '#D4AA50',
       gridLabelColor: '#6B4C1A',
       gridValueColor: '#8B1A1A',
-      iconCircle1: '#8B1A1A',
-      iconCircle2: '#B8921A',
+      iconCircle1: 'radial-gradient(circle at 35% 30%, #B52020, #6B1010)',
+      iconCircle2: 'radial-gradient(circle at 35% 30%, #D4AA30, #966010)',
 
       renewBtnBg: '#8B1A1A',
       renewBtnText: '#FFF8E7',
@@ -79,8 +79,8 @@ export const TEMPLATES: TemplateConfig[] = [
       gridBorderColor: '#3A5A7A',
       gridLabelColor: '#7A9AB8',
       gridValueColor: '#B8D0E8',
-      iconCircle1: '#1E3A5A',
-      iconCircle2: '#2A5070',
+      iconCircle1: 'radial-gradient(circle at 35% 30%, #2A4E72, #0E2236)',
+      iconCircle2: 'radial-gradient(circle at 35% 30%, #366488, #1A3A54)',
 
       renewBtnBg: '#1E3A5A',
       renewBtnText: '#D8E8F8',
@@ -126,8 +126,8 @@ export const TEMPLATES: TemplateConfig[] = [
       gridBorderColor: '#D4AF37',
       gridLabelColor: '#888888',
       gridValueColor: '#1A1A1A',
-      iconCircle1: '#2A2A2A',
-      iconCircle2: '#C8A030',
+      iconCircle1: 'radial-gradient(circle at 35% 30%, #404040, #1A1A1A)',
+      iconCircle2: 'radial-gradient(circle at 35% 30%, #E0BC40, #A07810)',
 
       renewBtnBg: '#1A1A1A',
       renewBtnText: '#FFFFFF',
