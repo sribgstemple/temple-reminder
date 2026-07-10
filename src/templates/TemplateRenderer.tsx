@@ -9,15 +9,12 @@ import godImage from "../assets/god.png";
 
 const Corner = ({ color }: { color: string }) => (
   <svg viewBox="0 0 130 130" width="130" height="130" fill="none">
-    {/* Three nested bracket lines */}
     <path d="M10 124 L10 36 Q10 10 36 10 L124 10"
       stroke={color} strokeWidth="5" strokeLinecap="round" />
     <path d="M20 124 L20 43 Q20 20 43 20 L124 20"
       stroke={color} strokeWidth="1.4" strokeLinecap="round" opacity="0.52" />
     <path d="M28 124 L28 50 Q28 28 50 28 L124 28"
       stroke={color} strokeWidth="0.7" strokeLinecap="round" opacity="0.26" />
-
-    {/* 8-petal flower at corner intersection */}
     <circle cx="32" cy="32" r="20" stroke={color} strokeWidth="1.1" />
     <circle cx="32" cy="32" r="7.5" fill={color} />
     {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => {
@@ -30,18 +27,12 @@ const Corner = ({ color }: { color: string }) => (
           fill={color} fillOpacity="0.48" />
       );
     })}
-
-    {/* Bead dots along bracket arms */}
     <circle cx="10" cy="68" r="3.2" fill={color} />
     <circle cx="10" cy="90" r="3.2" fill={color} />
     <circle cx="68" cy="10" r="3.2" fill={color} />
     <circle cx="90" cy="10" r="3.2" fill={color} />
-
-    {/* Elegant scroll curls at open arm ends */}
     <path d="M10 116 Q2 116 2 108 Q2 100 10 100" stroke={color} strokeWidth="2.2" />
     <path d="M116 10 Q116 2 108 2 Q100 2 100 10" stroke={color} strokeWidth="2.2" />
-
-    {/* Diamond accents mid-arm */}
     <polygon points="10,54 15.5,59 10,64 4.5,59" fill={color} opacity="0.75" />
     <polygon points="54,10 59,15.5 64,10 59,4.5" fill={color} opacity="0.75" />
   </svg>
@@ -68,7 +59,7 @@ const Lotus = ({ color, size = 48 }: { color: string; size?: number }) => (
 );
 
 // ─────────────────────────────────────────────────────────────────────────────
-// MANDALA WATERMARK — 12-fold symmetry, centred, very faint
+// MANDALA WATERMARK — 12-fold symmetry, very faint centre
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Mandala = ({ color }: { color: string }) => (
@@ -112,7 +103,6 @@ const Mandala = ({ color }: { color: string }) => (
 
 const Divider = ({ color }: { color: string }) => (
   <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", width: "100%" }}>
-    {/* Left flourish */}
     <svg viewBox="0 0 110 18" width="110" height="18" fill="none">
       <path d="M0 9 L110 9" stroke={color} strokeWidth="0.8" opacity="0.38" />
       <path d="M4 9 Q20 5 36 9 Q52 13 68 9 Q84 5 100 9 Q108 11 110 9"
@@ -121,8 +111,6 @@ const Divider = ({ color }: { color: string }) => (
       <circle cx="44" cy="9" r="1.8" fill={color} opacity="0.62" />
       <circle cx="74" cy="9" r="1.3" fill={color} opacity="0.38" />
     </svg>
-
-    {/* Diamond centrepiece */}
     <svg viewBox="0 0 40 40" width="32" height="32" fill="none">
       <polygon points="20,2 38,20 20,38 2,20" stroke={color} strokeWidth="1.5" />
       <polygon points="20,10 30,20 20,30 10,20" fill={color} fillOpacity="0.25" />
@@ -132,8 +120,6 @@ const Divider = ({ color }: { color: string }) => (
       <circle cx="20" cy="37" r="2.2" fill={color} />
       <circle cx="3"  cy="20" r="2.2" fill={color} />
     </svg>
-
-    {/* Right flourish (mirrored) */}
     <svg viewBox="0 0 110 18" width="110" height="18" fill="none"
       style={{ transform: "scaleX(-1)" }}>
       <path d="M0 9 L110 9" stroke={color} strokeWidth="0.8" opacity="0.38" />
@@ -181,8 +167,8 @@ function urgColor(days: number): string {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN RENDERER
-// One component — three templates are config/data only, no duplicated logic.
-// Captured off-screen at exactly 1080×1350 px via html-to-image (Chromium).
+// 1080 × 1350 px portrait — left deity column + right content column
+// Captured off-screen via html-to-image (Chromium) after document.fonts.ready
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface Props {
@@ -203,7 +189,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
       days === 0 ? "Expires today" :
       `${days} days`;
 
-    // Gold / silver foil gradient — direction adapted per theme
+    // Gold / silver foil gradient for the temple name
     const goldTextStyle: React.CSSProperties = {
       background: isLight
         ? "linear-gradient(160deg, #7A5200 0%, #C8980C 18%, #F2D440 38%, #FFF5A0 50%, #F2D440 62%, #C8980C 82%, #7A5200 100%)"
@@ -214,25 +200,11 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
       color: s.templeNameColor,
     };
 
-    // Subtle diagonal crosshatch paper texture
     const paperTexture: React.CSSProperties = {
       position: "absolute", inset: 0, pointerEvents: "none",
       backgroundImage:
         "repeating-linear-gradient(-45deg, transparent, transparent 3px, rgba(140,100,20,0.02) 3px, rgba(140,100,20,0.02) 4px)",
     };
-
-    // Cream panel style — used for both the blessing and QR base
-    const creamPanel = (extraStyle: React.CSSProperties = {}): React.CSSProperties => ({
-      background: isLight
-        ? "linear-gradient(145deg, rgba(255,255,252,0.84) 0%, rgba(253,246,228,0.78) 100%)"
-        : "linear-gradient(145deg, rgba(18,32,52,0.92) 0%, rgba(10,20,36,0.94) 100%)",
-      border: `1px solid ${s.borderColor}45`,
-      borderRadius: 18,
-      boxShadow: isLight
-        ? "0 2px 20px rgba(120,80,10,0.07), inset 0 1px 0 rgba(255,255,255,0.72)"
-        : "0 2px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04)",
-      ...extraStyle,
-    });
 
     const deityImg = settings.templeLogoBase64 || godImage;
 
@@ -242,7 +214,6 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
         style={{
           width: 1080, height: 1350,
           position: "relative", overflow: "hidden",
-          // Warm ivory parchment — multi-stop gradient for depth
           background: isLight
             ? "linear-gradient(168deg, #FFFEFB 0%, #FDF7EC 22%, #F9EDD8 50%, #F2E0C0 78%, #E8CFA6 100%)"
             : "linear-gradient(168deg, #0C1520 0%, #111E30 35%, #172638 65%, #0E1C2C 100%)",
@@ -250,290 +221,352 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           boxSizing: "border-box",
         }}
       >
-        {/* ── Mandala watermark (4.5 % opacity — barely there) ── */}
+        {/* ── Centre mandala watermark ── */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           display: "flex", alignItems: "center", justifyContent: "center",
-          opacity: 0.045,
+          opacity: 0.042,
         }}>
           <Mandala color={isLight ? "#8B6010" : "#5A88B8"} />
         </div>
 
-        {/* ── Top golden radial glow ── */}
+        {/* ── Left edge mandala accent (from reference layout) ── */}
+        <div style={{
+          position: "absolute", left: -55, top: "22%",
+          opacity: 0.10, pointerEvents: "none",
+        }}>
+          <svg viewBox="0 0 100 100" width="230" height="230" fill="none"
+            stroke={s.borderColor} strokeWidth="0.7">
+            <circle cx="0" cy="50" r="50" />
+            <circle cx="0" cy="50" r="35" />
+            <circle cx="0" cy="50" r="20" />
+            {Array.from({ length: 12 }).map((_, i) => (
+              <line key={i} x1="0" y1="50"
+                x2={50 * Math.cos((i * 30 * Math.PI) / 180)}
+                y2={50 + 50 * Math.sin((i * 30 * Math.PI) / 180)} />
+            ))}
+          </svg>
+        </div>
+
+        {/* ── Right edge mandala accent ── */}
+        <div style={{
+          position: "absolute", right: -55, top: "38%",
+          opacity: 0.10, pointerEvents: "none",
+        }}>
+          <svg viewBox="0 0 100 100" width="230" height="230" fill="none"
+            stroke={s.borderColor} strokeWidth="0.7">
+            <circle cx="100" cy="50" r="50" />
+            <circle cx="100" cy="50" r="35" />
+            <circle cx="100" cy="50" r="20" />
+            {Array.from({ length: 12 }).map((_, i) => (
+              <line key={i} x1="100" y1="50"
+                x2={100 - 50 * Math.cos((i * 30 * Math.PI) / 180)}
+                y2={50 + 50 * Math.sin((i * 30 * Math.PI) / 180)} />
+            ))}
+          </svg>
+        </div>
+
+        {/* ── Top gold radial glow ── */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 88% 42% at 50% 0%, rgba(212,175,55,0.20) 0%, transparent 66%)",
+            "radial-gradient(ellipse 88% 40% at 50% 0%, rgba(212,175,55,0.18) 0%, transparent 65%)",
         }} />
 
-        {/* ── Soft edge vignette ── */}
+        {/* ── Edge vignette ── */}
         <div style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           background:
-            "radial-gradient(ellipse 95% 96% at 50% 50%, transparent 48%, rgba(80,44,4,0.14) 100%)",
+            "radial-gradient(ellipse 95% 96% at 50% 50%, transparent 48%, rgba(80,44,4,0.13) 100%)",
         }} />
 
-        {/* ── Paper crosshatch texture ── */}
+        {/* ── Fine paper crosshatch ── */}
         <div style={paperTexture} />
 
-        {/* ── DOUBLE GOLD BORDER FRAME ── */}
-        {/* Outer — 5 px, gold glow */}
+        {/* ── DOUBLE GOLD BORDER ── */}
         <div style={{
           position: "absolute", inset: 9, zIndex: 20, pointerEvents: "none",
           border: `5px solid ${s.borderColor}`,
           borderRadius: 8,
           boxShadow: [
             `0 0 0 1.5px rgba(200,168,75,0.28)`,
-            `0 0 28px rgba(200,168,75,0.16)`,
-            `inset 0 0 0 1.5px rgba(200,168,75,0.20)`,
+            `0 0 26px rgba(200,168,75,0.15)`,
+            `inset 0 0 0 1.5px rgba(200,168,75,0.18)`,
           ].join(", "),
         }} />
-        {/* Inner — 1.5 px */}
         <div style={{
           position: "absolute", inset: 22, zIndex: 20, pointerEvents: "none",
           border: `1.5px solid ${s.borderColor}`,
-          borderRadius: 3,
-          opacity: 0.55,
+          borderRadius: 3, opacity: 0.52,
         }} />
 
         {/* ── CORNER ORNAMENTS ── */}
         {[
-          { top: 0,    left: 0,   transform: "none"         },
-          { top: 0,    right: 0,  transform: "scaleX(-1)"   },
-          { bottom: 0, left: 0,   transform: "scaleY(-1)"   },
-          { bottom: 0, right: 0,  transform: "scale(-1,-1)" },
+          { top: 0,    left: 0,  transform: "none"         },
+          { top: 0,    right: 0, transform: "scaleX(-1)"   },
+          { bottom: 0, left: 0,  transform: "scaleY(-1)"   },
+          { bottom: 0, right: 0, transform: "scale(-1,-1)" },
         ].map((pos, i) => (
           <div key={i} style={{ position: "absolute", ...pos, zIndex: 21, pointerEvents: "none" }}>
             <Corner color={s.borderColor} />
           </div>
         ))}
 
-        {/* ═══════════════════════════════════════════════════════════════════
+        {/* ══════════════════════════════════════════════════════════════════
             CONTENT COLUMN
-            flex column, detail rows absorb remaining height via flex:1
-            ═══════════════════════════════════════════════════════════════════ */}
+            ══════════════════════════════════════════════════════════════════ */}
         <div style={{
           position: "relative", zIndex: 10,
           height: "100%",
           display: "flex", flexDirection: "column",
-          padding: "36px 70px 0",
+          padding: "38px 60px 0",
         }}>
 
-          {/* ── A. DEITY — ALWAYS FULLY VISIBLE ─────────────────────────────
-               object-fit: contain  →  never crops, always preserves ratio
-               flex centering      →  centered regardless of aspect ratio
-               ─────────────────────────────────────────────────────────────── */}
-          <div style={{
-            flexShrink: 0,
-            height: 288,
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}>
-            {/* Soft golden aureole beneath the deity */}
-            <div style={{
-              position: "absolute",
-              bottom: 0, left: "50%", transform: "translateX(-50%)",
-              width: 380, height: 60,
-              background:
-                "radial-gradient(ellipse at center bottom, rgba(212,175,55,0.24) 0%, transparent 70%)",
-              borderRadius: "50%",
-              pointerEvents: "none",
-            }} />
-            <img
-              src={deityImg}
-              alt="Temple deity"
-              style={{
-                maxHeight: 276,
-                maxWidth: "100%",
-                width: "auto",
-                height: "auto",
-                objectFit: "contain",
-                objectPosition: "center center",
-                display: "block",
-                position: "relative",
-                zIndex: 1,
-              }}
-            />
-          </div>
-
-          {/* ── B. TEMPLE NAME — Cinzel, gold foil ──────────────────────── */}
-          <div style={{
-            flexShrink: 0,
-            textAlign: "center",
-            padding: "10px 0 14px",
-          }}>
-            <div style={{
-              fontFamily: "'Cinzel', 'Cormorant Garamond', serif",
-              fontSize: 50, fontWeight: 700,
-              letterSpacing: "0.07em",
-              textTransform: "uppercase",
-              lineHeight: 1.2,
-              ...goldTextStyle,
-            }}>
-              {settings.templeName}
-            </div>
-          </div>
-
-          {/* Divider 1 */}
-          <div style={{ flexShrink: 0, padding: "0 0 12px" }}>
-            <Divider color={s.borderColor} />
-          </div>
-
-          {/* ── C. GREETING — stacked for maximum elegance ────────────────── */}
-          <div style={{
-            flexShrink: 0,
-            textAlign: "center",
-            padding: "2px 24px 14px",
-          }}>
-            {/* "Namaste" — small italic above */}
-            <div style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 28, fontStyle: "italic", fontWeight: 400,
-              color: s.greetingTextColor,
-              letterSpacing: "0.10em",
-              opacity: 0.72,
-              marginBottom: 2,
-            }}>
-              Namaste
-            </div>
-
-            {/* Devotee name — the focal point */}
-            <div style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 56, fontWeight: 800,
-              color: s.greetingNameColor,
-              lineHeight: 1.08,
-              letterSpacing: "-0.01em",
-              marginBottom: 14,
-            }}>
-              {devotee.name}
-            </div>
-
-            {/* Thank-you body text */}
-            <div style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: 20, fontStyle: "italic",
-              color: s.greetingTextColor,
-              lineHeight: 1.65, opacity: 0.80,
-            }}>
-              We sincerely thank you for your devotion and continued support towards the temple.
-            </div>
-          </div>
-
-          {/* Divider 2 */}
-          <div style={{ flexShrink: 0, padding: "2px 0 10px" }}>
-            <Divider color={s.borderColor} />
-          </div>
-
-          {/* ── D. DETAILS — flex:1, four luxurious rows ─────────────────── */}
+          {/* ── MAIN ROW: left deity column + right content column ─────── */}
           <div style={{
             flex: 1,
-            display: "flex", flexDirection: "column",
-            justifyContent: "space-evenly",
-            padding: "0 4px",
+            display: "flex",
+            gap: "34px",
+            overflow: "hidden",
           }}>
-            {([
-              { label: "Service",          value: devotee.service,                    color: s.gridValueColor },
-              { label: "Expire Date",      value: fmtDate(devotee.expiryDate),        color: s.gridValueColor },
-              { label: "Duration",         value: daysStr,                            color: uc              },
-              { label: "Registration ID",  value: devotee.devoteeId || devotee.mobile, color: s.gridValueColor },
-            ] as { label: string; value: string; color: string }[]).map(({ label, value, color }, i, arr) => (
-              <div key={label}>
-                {/* Label — lotus ornament + small uppercase */}
-                <div style={{
-                  display: "flex", alignItems: "center", gap: 8,
-                  marginBottom: 3,
-                }}>
-                  <Lotus color={s.lotusColor} size={13} />
-                  <div style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: 13, fontWeight: 700,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    color: s.gridLabelColor,
-                    opacity: 0.82,
-                  }}>
-                    {label}
-                  </div>
-                </div>
 
-                {/* Value — maximized serif */}
+            {/* ── LEFT: Deity column ──────────────────────────────────── */}
+            <div style={{
+              width: 214, flexShrink: 0,
+              display: "flex", flexDirection: "column",
+              alignItems: "center",
+              paddingTop: 10,
+              position: "relative",
+            }}>
+              {/* Soft golden aureole beneath deity */}
+              <div style={{
+                position: "absolute",
+                bottom: "28%", left: "50%", transform: "translateX(-50%)",
+                width: 260, height: 52,
+                background:
+                  "radial-gradient(ellipse at center bottom, rgba(212,175,55,0.22) 0%, transparent 72%)",
+                borderRadius: "50%", pointerEvents: "none",
+              }} />
+
+              {/* Deity image — always fully visible, never cropped */}
+              <img
+                src={deityImg}
+                alt="Temple deity"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  objectFit: "contain",
+                  objectPosition: "center top",
+                  display: "block",
+                  position: "relative", zIndex: 1,
+                }}
+              />
+
+              {/* Decorative lotus pillar below deity */}
+              <div style={{
+                flex: 1,
+                display: "flex", flexDirection: "column",
+                alignItems: "center",
+                paddingTop: 16, gap: 10,
+              }}>
+                <div style={{
+                  width: 1.5, height: 64,
+                  background: `linear-gradient(180deg, ${s.borderColor}55, transparent)`,
+                  borderRadius: 1,
+                }} />
+                <Lotus color={s.lotusColor} size={26} />
+                <div style={{
+                  width: 1.5, height: 44,
+                  background: `linear-gradient(180deg, transparent, ${s.borderColor}40, transparent)`,
+                  borderRadius: 1,
+                }} />
+                <Lotus color={s.lotusColor} size={19} />
+                <div style={{
+                  width: 1.5, height: 44,
+                  background: `linear-gradient(180deg, transparent, ${s.borderColor}28, transparent)`,
+                  borderRadius: 1,
+                }} />
+              </div>
+            </div>
+
+            {/* ── RIGHT: Content column ─────────────────────────────── */}
+            <div style={{
+              flex: 1,
+              display: "flex", flexDirection: "column",
+              overflow: "hidden",
+            }}>
+
+              {/* Temple name — Cinzel, gold foil */}
+              <div style={{
+                fontFamily: "'Cinzel', 'Cormorant Garamond', serif",
+                fontSize: 42, fontWeight: 700,
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                lineHeight: 1.22,
+                ...goldTextStyle,
+                paddingBottom: 10,
+              }}>
+                {settings.templeName}
+              </div>
+
+              {/* Divider 1 */}
+              <div style={{ paddingBottom: 12 }}>
+                <Divider color={s.borderColor} />
+              </div>
+
+              {/* Greeting — stacked Namaste / Name */}
+              <div style={{ paddingBottom: 12 }}>
+                <div style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 24, fontStyle: "italic", fontWeight: 400,
+                  color: s.greetingTextColor,
+                  letterSpacing: "0.10em",
+                  opacity: 0.72,
+                  marginBottom: 2,
+                }}>
+                  Namaste
+                </div>
                 <div style={{
                   fontFamily: "'Playfair Display', serif",
-                  fontSize: 46, fontWeight: 700,
-                  color, lineHeight: 1.08,
+                  fontSize: 58, fontWeight: 800,
+                  color: s.greetingNameColor,
+                  lineHeight: 1.06,
+                  letterSpacing: "-0.01em",
+                  marginBottom: 10,
                   whiteSpace: "nowrap",
                   overflow: "hidden", textOverflow: "ellipsis",
-                  paddingLeft: 21,
                 }}>
-                  {value}
+                  {devotee.name}!
                 </div>
-
-                {/* Soft gradient separator */}
-                {i < arr.length - 1 && (
-                  <div style={{
-                    height: 1, marginTop: 8,
-                    background: `linear-gradient(90deg, transparent, ${s.borderColor}58 28%, ${s.borderColor}58 72%, transparent)`,
-                  }} />
-                )}
+                <div style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 18, fontStyle: "italic",
+                  color: s.greetingTextColor,
+                  lineHeight: 1.65, opacity: 0.78,
+                }}>
+                  We sincerely thank you for your devotion and continued
+                  support towards the temple.
+                </div>
               </div>
-            ))}
+
+              {/* Divider 2 */}
+              <div style={{ paddingBottom: 12 }}>
+                <Divider color={s.borderColor} />
+              </div>
+
+              {/* Details grid — inline Label: Value on each row ──────── */}
+              <div style={{
+                flex: 1,
+                display: "flex", flexDirection: "column",
+                justifyContent: "space-evenly",
+              }}>
+                {([
+                  { label: "Service:",         value: devotee.service,                    color: s.gridValueColor },
+                  { label: "Expire Date:",     value: fmtDate(devotee.expiryDate),        color: s.gridValueColor },
+                  { label: "Duration:",        value: daysStr,                            color: uc              },
+                  { label: "Registration ID:", value: devotee.devoteeId || devotee.mobile, color: s.gridValueColor },
+                ] as { label: string; value: string; color: string }[]).map(({ label, value, color }, i, arr) => (
+                  <div key={label}>
+                    {/* Label + value on same baseline row */}
+                    <div style={{
+                      display: "flex",
+                      alignItems: "baseline",
+                      gap: 14,
+                    }}>
+                      <div style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: 15, fontWeight: 700,
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: s.gridLabelColor,
+                        flexShrink: 0,
+                        minWidth: 210,
+                        opacity: 0.80,
+                        paddingTop: 6,
+                      }}>
+                        {label}
+                      </div>
+                      <div style={{
+                        fontFamily: "'Playfair Display', serif",
+                        fontSize: 44, fontWeight: 700,
+                        color, lineHeight: 1.06,
+                        whiteSpace: "nowrap",
+                        overflow: "hidden", textOverflow: "ellipsis",
+                      }}>
+                        {value}
+                      </div>
+                    </div>
+
+                    {/* Gradient separator line */}
+                    {i < arr.length - 1 && (
+                      <div style={{
+                        height: 1, marginTop: 8,
+                        background: `linear-gradient(90deg, transparent, ${s.borderColor}50 22%, ${s.borderColor}50 78%, transparent)`,
+                      }} />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+            </div>
           </div>
 
-          {/* Divider 3 */}
-          <div style={{ flexShrink: 0, padding: "10px 0 14px" }}>
+          {/* ── Divider before footer ─────────────────────────────────── */}
+          <div style={{ flexShrink: 0, padding: "10px 0 12px" }}>
             <Divider color={s.borderColor} />
           </div>
 
-          {/* ── E. FOOTER — 70 / 30 horizontal split ──────────────────────── */}
+          {/* ── FOOTER — 70 / 30 split ────────────────────────────────── */}
           <div style={{
             flexShrink: 0,
             display: "flex", gap: 18, alignItems: "stretch",
             paddingBottom: 14,
           }}>
 
-            {/* Left 70%: blessing panel ─────────────────────────────────── */}
+            {/* Left 70%: blessing panel */}
             <div style={{
               flex: 7,
-              padding: "20px 24px 18px",
-              display: "flex", flexDirection: "column",
-              justifyContent: "center",
-              ...creamPanel(),
+              background: isLight
+                ? "linear-gradient(145deg, rgba(255,255,252,0.84), rgba(253,246,228,0.78))"
+                : "linear-gradient(145deg, rgba(18,32,52,0.92), rgba(10,20,36,0.94))",
+              border: `1px solid ${s.borderColor}45`,
+              borderRadius: 18,
+              padding: "18px 22px 16px",
+              display: "flex", flexDirection: "column", justifyContent: "center",
+              boxShadow: isLight
+                ? "0 2px 20px rgba(120,80,10,0.07), inset 0 1px 0 rgba(255,255,255,0.72)"
+                : "0 2px 20px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.04)",
             }}>
               {/* Lotus pair flanking blessing text */}
               <div style={{
-                display: "flex", alignItems: "flex-start", gap: 14, marginBottom: 12,
+                display: "flex", alignItems: "flex-start", gap: 14, marginBottom: 10,
               }}>
-                <Lotus color={s.lotusColor} size={40} />
+                <Lotus color={s.lotusColor} size={38} />
                 <div style={{
                   flex: 1,
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 19, fontStyle: "italic",
+                  fontSize: 18, fontStyle: "italic",
                   color: s.blessingTextColor, lineHeight: 1.65,
                   textAlign: "center",
                 }}>
                   {settings.blessingMessage}
                 </div>
-                <Lotus color={s.lotusColor} size={40} />
+                <Lotus color={s.lotusColor} size={38} />
               </div>
-
               {/* Om Namah Shivaya */}
               <div style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 22, fontStyle: "italic",
+                fontSize: 21, fontStyle: "italic",
                 color: s.footerOmColor,
                 letterSpacing: "0.08em",
                 textAlign: "center",
               }}>
                 ✦&ensp;Om Namah Shivaya&ensp;✦
               </div>
-
-              {/* Temple contact (when available) */}
+              {/* Temple contact */}
               {(settings.templePhone || settings.templeWebsite) && (
                 <div style={{
-                  textAlign: "center", marginTop: 8,
+                  textAlign: "center", marginTop: 6,
                   fontSize: 13, color: s.greetingTextColor, opacity: 0.40,
                   fontFamily: "'Inter', sans-serif",
                 }}>
@@ -542,54 +575,44 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               )}
             </div>
 
-            {/* Right 30%: premium QR panel ─────────────────────────────── */}
+            {/* Right 30%: premium QR panel */}
             <div style={{
               flex: 3,
-              padding: "16px 14px 14px",
+              background: isLight
+                ? "linear-gradient(145deg, #FFFDF8, #FBF2E0)"
+                : "linear-gradient(145deg, rgba(18,32,52,0.96), rgba(10,20,36,0.98))",
+              border: `2px solid ${s.borderColor}`,
+              borderRadius: 18,
+              padding: "14px 12px",
               display: "flex", flexDirection: "column",
-              alignItems: "center", justifyContent: "center", gap: 10,
-              ...creamPanel({
-                border: `2px solid ${s.borderColor}`,
-                boxShadow: isLight
-                  ? "0 4px 22px rgba(120,80,10,0.12), inset 0 1px 0 rgba(255,255,255,0.78)"
-                  : "0 4px 22px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.06)",
-              }),
+              alignItems: "center", justifyContent: "center", gap: 8,
+              boxShadow: isLight
+                ? "0 4px 22px rgba(120,80,10,0.12), inset 0 1px 0 rgba(255,255,255,0.78)"
+                : "0 4px 22px rgba(0,0,0,0.30), inset 0 1px 0 rgba(255,255,255,0.06)",
             }}>
-              {/* QR image in a white inset box */}
+              {/* QR in white inset box */}
               <div style={{
                 background: "#FFFFFF",
-                borderRadius: 10,
-                padding: 8,
+                borderRadius: 10, padding: 8,
                 boxShadow: "0 2px 10px rgba(0,0,0,0.09)",
               }}>
                 <img src={qrDataUrl} alt="QR"
-                  style={{ width: 156, height: 156, display: "block" }} />
+                  style={{ width: 148, height: 148, display: "block" }} />
               </div>
-
-              {/* Scan label */}
               <div style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: 13, fontWeight: 800,
+                fontSize: 12, fontWeight: 800,
                 letterSpacing: "0.20em",
                 textTransform: "uppercase",
-                color: s.gridLabelColor,
-                textAlign: "center",
+                color: s.gridLabelColor, textAlign: "center",
               }}>
                 Scan to Renew
-              </div>
-              <div style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 13, fontStyle: "italic",
-                color: s.greetingTextColor, opacity: 0.42,
-                textAlign: "center",
-              }}>
-                for seva renewal
               </div>
             </div>
           </div>
 
-          {/* ── F. BOTTOM LOTUS STRIP ─────────────────────────────────────── */}
-          <div style={{ margin: "0 -70px", flexShrink: 0 }}>
+          {/* ── BOTTOM LOTUS STRIP ────────────────────────────────────── */}
+          <div style={{ margin: "0 -60px", flexShrink: 0 }}>
             <LotusStrip color={s.borderColor} bg={s.bottomStripBg} />
           </div>
 
