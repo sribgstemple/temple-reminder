@@ -4,77 +4,103 @@ export const TEMPLATES: TemplateConfig[] = [
   {
     id: 'classic',
     name: 'Classic Temple',
-    description: 'Cream & gold with maroon accents — timeless, devotional elegance',
+    description: 'Cream & gold with maroon — matches the reference design',
     preview: {
-      bg: 'linear-gradient(135deg, #FDF8F0 0%, #F5E8D0 100%)',
-      border: '#D4AF37',
-      text: '#6B1C1C',
-      accent: '#D4AF37',
+      bg: 'linear-gradient(135deg, #F5E6C8 0%, #EDD9A3 100%)',
+      border: '#C8A84B',
+      text: '#8B1A1A',
+      accent: '#C8A84B',
     },
     styles: {
-      outerBg: 'linear-gradient(160deg, #FDF8F0 0%, #F8F0E0 50%, #F5E8D0 100%)',
-      outerBgPattern: `radial-gradient(ellipse 60% 60% at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 70%),
-        radial-gradient(circle at 15% 85%, rgba(107,28,28,0.05) 0%, transparent 40%),
-        radial-gradient(circle at 85% 20%, rgba(212,175,55,0.06) 0%, transparent 35%)`,
-      borderColor: '#D4AF37',
-      borderGradient: 'linear-gradient(135deg, #D4AF37 0%, #F0C040 40%, #B8860B 70%, #D4AF37 100%)',
-      headerBg: 'linear-gradient(180deg, #5A1515 0%, #6B1C1C 60%, #7B2020 100%)',
-      headerTextColor: '#F5D876',
-      headerSubColor: '#F0C878',
-      bodyBg: 'rgba(255,252,248,0.95)',
-      devoteeName: '#6B1C1C',
-      labelColor: '#7A5C3A',
-      valueColor: '#3D2B1A',
-      accentColor: '#D4AF37',
-      footerBg: 'linear-gradient(180deg, #6B1C1C 0%, #5A1515 100%)',
-      footerTextColor: '#F5D876',
-      qrBorderColor: '#D4AF37',
-      highlightBg: 'linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.06) 100%)',
-      highlightText: '#5A1515',
+      outerBg: '#F5E6C8',
+      bgPattern: `radial-gradient(ellipse 70% 40% at 50% 0%, rgba(200,168,75,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 30% at 100% 100%, rgba(139,26,26,0.06) 0%, transparent 50%)`,
+
+      borderColor: '#C8A84B',
+
+      templeNameColor: '#8B1A1A',
+      omNameColor: '#B8921A',
+
+      greetingNameColor: '#8B1A1A',
+      greetingTextColor: '#4A2B0A',
+
+      reminderIconBg: '#C8A84B',
+      reminderHighlight: '#8B1A1A',
+
+      gridBg: 'rgba(255,255,255,0.55)',
+      gridBorderColor: '#D4AA50',
+      gridLabelColor: '#6B4C1A',
+      gridValueColor: '#8B1A1A',
+      iconCircle1: '#8B1A1A',
+      iconCircle2: '#B8921A',
+
+      renewBtnBg: '#8B1A1A',
+      renewBtnText: '#FFF8E7',
+
+      accentColor: '#C8A84B',
+      lotusColor: '#8B6914',
+
+      blessingTextColor: '#4A2B0A',
+      footerOmColor: '#B8921A',
+
+      bottomStripBg: 'rgba(200,168,75,0.18)',
+
       fontFamily: "'Inter', 'Poppins', sans-serif",
       headingFont: "'Playfair Display', 'Cormorant Garamond', serif",
-      decorationOpacity: 0.07,
     },
   },
   {
     id: 'shiva',
     name: 'Shiva Theme',
-    description: 'Deep blue & silver with temple-bell motifs — sacred and majestic',
+    description: 'Deep blue & silver — sacred night sky aesthetic',
     preview: {
-      bg: 'linear-gradient(135deg, #0A1628 0%, #1A2B4A 100%)',
-      border: '#C0C0C0',
-      text: '#E8E8FF',
-      accent: '#B0C4DE',
+      bg: 'linear-gradient(135deg, #0D1B2E 0%, #1A2E4A 100%)',
+      border: '#8AAEC8',
+      text: '#E8F0F8',
+      accent: '#8AAEC8',
     },
     styles: {
-      outerBg: 'linear-gradient(160deg, #0A1628 0%, #0D1E3A 50%, #111F38 100%)',
-      outerBgPattern: `radial-gradient(ellipse 80% 50% at 50% -10%, rgba(176,196,222,0.12) 0%, transparent 60%),
-        radial-gradient(circle at 85% 80%, rgba(192,192,192,0.06) 0%, transparent 40%),
-        radial-gradient(circle at 15% 30%, rgba(100,149,237,0.08) 0%, transparent 35%)`,
-      borderColor: '#8A9BAA',
-      borderGradient: 'linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 30%, #A0A8B0 60%, #C0C0C0 100%)',
-      headerBg: 'linear-gradient(180deg, #060E1C 0%, #0A1628 100%)',
-      headerTextColor: '#D4D8E0',
-      headerSubColor: '#B0C4DE',
-      bodyBg: 'rgba(10,22,40,0.98)',
-      devoteeName: '#E0E4EE',
-      labelColor: '#8FA0B8',
-      valueColor: '#C8D4E4',
-      accentColor: '#B0C4DE',
-      footerBg: 'linear-gradient(180deg, #060E1C 0%, #040A14 100%)',
-      footerTextColor: '#A0B4C8',
-      qrBorderColor: '#8090A8',
-      highlightBg: 'linear-gradient(135deg, rgba(176,196,222,0.12) 0%, rgba(176,196,222,0.05) 100%)',
-      highlightText: '#D0DCF0',
+      outerBg: '#0D1B2E',
+      bgPattern: `radial-gradient(ellipse 70% 40% at 50% 0%, rgba(100,160,220,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 30% at 100% 100%, rgba(60,100,160,0.08) 0%, transparent 50%)`,
+
+      borderColor: '#6A90B0',
+
+      templeNameColor: '#D8E8F8',
+      omNameColor: '#88B8D8',
+
+      greetingNameColor: '#88B8D8',
+      greetingTextColor: '#B0C8E0',
+
+      reminderIconBg: '#2A4A6A',
+      reminderHighlight: '#88B8D8',
+
+      gridBg: 'rgba(255,255,255,0.05)',
+      gridBorderColor: '#3A5A7A',
+      gridLabelColor: '#7A9AB8',
+      gridValueColor: '#B8D0E8',
+      iconCircle1: '#1E3A5A',
+      iconCircle2: '#2A5070',
+
+      renewBtnBg: '#1E3A5A',
+      renewBtnText: '#D8E8F8',
+
+      accentColor: '#88B8D8',
+      lotusColor: '#5A88A8',
+
+      blessingTextColor: '#A0C0D8',
+      footerOmColor: '#88B8D8',
+
+      bottomStripBg: 'rgba(100,160,220,0.12)',
+
       fontFamily: "'Inter', sans-serif",
       headingFont: "'Cormorant Garamond', 'Playfair Display', serif",
-      decorationOpacity: 0.06,
     },
   },
   {
     id: 'minimal',
     name: 'Minimal Gold',
-    description: 'Clean white & gold — modern, professional, understated',
+    description: 'Clean white & gold — modern, professional',
     preview: {
       bg: '#FFFFFF',
       border: '#D4AF37',
@@ -82,26 +108,40 @@ export const TEMPLATES: TemplateConfig[] = [
       accent: '#D4AF37',
     },
     styles: {
-      outerBg: '#FAFAFA',
-      outerBgPattern: `radial-gradient(ellipse 50% 30% at 50% 0%, rgba(212,175,55,0.05) 0%, transparent 70%)`,
+      outerBg: '#FFFFFF',
+      bgPattern: `radial-gradient(ellipse 60% 30% at 50% 0%, rgba(212,175,55,0.06) 0%, transparent 60%)`,
+
       borderColor: '#D4AF37',
-      borderGradient: 'linear-gradient(135deg, #D4AF37 0%, #E8C84A 50%, #B8860B 100%)',
-      headerBg: '#FFFFFF',
-      headerTextColor: '#1A1A1A',
-      headerSubColor: '#B8860B',
-      bodyBg: '#FFFFFF',
-      devoteeName: '#1A1A1A',
-      labelColor: '#888888',
-      valueColor: '#2A2A2A',
+
+      templeNameColor: '#1A1A1A',
+      omNameColor: '#B8860B',
+
+      greetingNameColor: '#B8860B',
+      greetingTextColor: '#333333',
+
+      reminderIconBg: '#D4AF37',
+      reminderHighlight: '#B8860B',
+
+      gridBg: 'rgba(212,175,55,0.04)',
+      gridBorderColor: '#D4AF37',
+      gridLabelColor: '#888888',
+      gridValueColor: '#1A1A1A',
+      iconCircle1: '#2A2A2A',
+      iconCircle2: '#C8A030',
+
+      renewBtnBg: '#1A1A1A',
+      renewBtnText: '#FFFFFF',
+
       accentColor: '#D4AF37',
-      footerBg: '#F8F4EE',
-      footerTextColor: '#555555',
-      qrBorderColor: '#D4AF37',
-      highlightBg: 'linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.04) 100%)',
-      highlightText: '#1A1A1A',
+      lotusColor: '#C8A030',
+
+      blessingTextColor: '#333333',
+      footerOmColor: '#B8860B',
+
+      bottomStripBg: 'rgba(212,175,55,0.10)',
+
       fontFamily: "'Inter', sans-serif",
       headingFont: "'Playfair Display', serif",
-      decorationOpacity: 0.04,
     },
   },
 ]

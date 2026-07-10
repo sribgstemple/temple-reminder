@@ -1,6 +1,202 @@
 import React from 'react'
 import type { DevoteeRecord, TemplateConfig, TempleSettings } from '../types'
 
+// ── Inline SVG icons (white on colored circles) ────────────────────────────
+
+const SvgPray = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
+    <path d="M9 6c0-1.1.9-2 2-2h2c1.1 0 2 .9 2 2v6l-3 3-3-3V6z"/>
+    <path d="M12 15v4M9 19h6"/>
+    <path d="M7 9L5 7M17 9l2-2"/>
+  </svg>
+)
+
+const SvgCalendar = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" width="22" height="22">
+    <rect x="3" y="4" width="18" height="18" rx="2"/>
+    <path d="M3 9h18M8 2v4m8-4v4"/>
+    <path d="M8 13h.01M12 13h.01M16 13h.01M8 17h.01M12 17h.01"/>
+  </svg>
+)
+
+const SvgClock = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" width="22" height="22">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M12 7v5l3 3"/>
+  </svg>
+)
+
+const SvgRupee = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" width="22" height="22">
+    <path d="M6 4h12M6 9h12M6 4c0 5 4 9 6 9s6-4 6-9M12 13v7"/>
+  </svg>
+)
+
+const SvgDome = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" width="22" height="22">
+    <path d="M4 20h16M6 20v-6M18 20v-6M12 4 Q6 6 6 14M12 4 Q18 6 18 14M12 4v-2M10 2h4"/>
+    <path d="M8 14h8"/>
+  </svg>
+)
+
+const SvgHeart = () => (
+  <svg viewBox="0 0 24 24" fill="white" stroke="white" strokeWidth="1.5" width="22" height="22">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+)
+
+const SvgGlobe = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8" strokeLinecap="round" width="22" height="22">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+)
+
+// ── Decorative SVG elements ────────────────────────────────────────────────
+
+// Lotus flower SVG (for blessing section and bottom strip)
+const LotusSvg = ({ color, size = 40 }: { color: string; size?: number }) => (
+  <svg viewBox="0 0 60 50" width={size} height={size * 50 / 60} fill="none">
+    <g stroke={color} strokeWidth="1.5" strokeLinecap="round">
+      {/* Center petal */}
+      <path d="M30 42 Q20 30 30 14 Q40 30 30 42Z" fill={color} fillOpacity="0.25"/>
+      {/* Left petals */}
+      <path d="M30 38 Q14 30 18 14 Q26 24 30 38Z" fill={color} fillOpacity="0.20"/>
+      <path d="M30 36 Q10 24 16 10 Q22 22 30 36Z" fill={color} fillOpacity="0.15"/>
+      {/* Right petals */}
+      <path d="M30 38 Q46 30 42 14 Q34 24 30 38Z" fill={color} fillOpacity="0.20"/>
+      <path d="M30 36 Q50 24 44 10 Q38 22 30 36Z" fill={color} fillOpacity="0.15"/>
+      {/* Stem */}
+      <path d="M30 42 L30 48"/>
+      <path d="M24 48 Q30 44 36 48"/>
+    </g>
+  </svg>
+)
+
+// Ornamental corner flourish (top-left; rotate for others)
+const CornerOrnament = ({ color, size = 72 }: { color: string; size?: number }) => (
+  <svg viewBox="0 0 72 72" width={size} height={size} fill="none">
+    <path d="M4 68 L4 18 Q4 4 18 4 L68 4" stroke={color} strokeWidth="2.5" fill="none"/>
+    <path d="M12 68 L12 22 Q12 12 22 12 L68 12" stroke={color} strokeWidth="1" fill="none" opacity="0.5"/>
+    {/* Corner diamond */}
+    <rect x="9" y="9" width="14" height="14" rx="1" transform="rotate(45 16 16)" stroke={color} strokeWidth="1.5" fill="none"/>
+    <circle cx="16" cy="16" r="3" fill={color}/>
+    {/* End scroll curls */}
+    <path d="M4 68 Q4 74 10 74 Q16 74 16 68" stroke={color} strokeWidth="1.5" fill="none"/>
+    <path d="M68 4 Q74 4 74 10 Q74 16 68 16" stroke={color} strokeWidth="1.5" fill="none"/>
+    {/* Mid ornament bead */}
+    <circle cx="4" cy="38" r="2.5" fill={color}/>
+    <circle cx="38" cy="4" r="2.5" fill={color}/>
+  </svg>
+)
+
+// Small divider diamond
+const DiamondDivider = ({ color }: { color: string }) => (
+  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+    <div style={{ height: '1px', width: '120px', background: `linear-gradient(to right, transparent, ${color})` }}/>
+    <svg viewBox="0 0 20 20" width="14" height="14" fill={color}>
+      <polygon points="10,1 19,10 10,19 1,10"/>
+    </svg>
+    <div style={{ height: '1px', width: '120px', background: `linear-gradient(to left, transparent, ${color})` }}/>
+  </div>
+)
+
+// Bottom lotus strip
+const LotusStrip = ({ color, bg }: { color: string; bg: string }) => {
+  const count = 13
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '2px',
+      background: bg,
+      padding: '6px 0 4px',
+      flexWrap: 'nowrap',
+      overflow: 'hidden',
+    }}>
+      {Array.from({ length: count }).map((_, i) => (
+        <LotusSvg key={i} color={color} size={28} />
+      ))}
+    </div>
+  )
+}
+
+// ── Icon circle badge ──────────────────────────────────────────────────────
+
+const IconBadge = ({ bg, children }: { bg: string; children: React.ReactNode }) => (
+  <div style={{
+    width: '52px',
+    height: '52px',
+    borderRadius: '50%',
+    background: bg,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    boxShadow: `0 2px 8px ${bg}66`,
+  }}>
+    {children}
+  </div>
+)
+
+// ── Grid detail cell ───────────────────────────────────────────────────────
+
+interface GridCellProps {
+  icon: React.ReactNode
+  label: string
+  value: string
+  labelColor: string
+  valueColor: string
+  borderRight?: boolean
+  borderBottom?: boolean
+  borderColor: string
+}
+
+const GridCell = ({ icon, label, value, labelColor, valueColor, borderRight, borderBottom, borderColor }: GridCellProps) => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    gap: '18px',
+    padding: '20px 24px',
+    borderRight: borderRight ? `1px dashed ${borderColor}` : 'none',
+    borderBottom: borderBottom ? `1px dashed ${borderColor}` : 'none',
+  }}>
+    {icon}
+    <div>
+      <div style={{
+        fontSize: '11px',
+        fontWeight: 700,
+        letterSpacing: '1.5px',
+        textTransform: 'uppercase',
+        color: labelColor,
+        marginBottom: '5px',
+      }}>
+        {label}
+      </div>
+      <div style={{
+        fontSize: '19px',
+        fontWeight: 700,
+        color: valueColor,
+        lineHeight: 1.2,
+      }}>
+        {value}
+      </div>
+    </div>
+  </div>
+)
+
+// ── Util ───────────────────────────────────────────────────────────────────
+
+function formatDate(iso: string): string {
+  if (!iso) return '—'
+  const [y, m, d] = iso.split('-')
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+  return `${parseInt(d)} ${months[parseInt(m,10)-1]} ${y}`
+}
+
+// ── Main renderer ──────────────────────────────────────────────────────────
+
 interface TemplateRendererProps {
   devotee: DevoteeRecord
   template: TemplateConfig
@@ -8,72 +204,28 @@ interface TemplateRendererProps {
   qrDataUrl: string
 }
 
-// Mandala SVG as inline data URL — subtle lotus/mandala pattern
-const MANDALA_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
-  <g opacity="1" fill="none" stroke="currentColor" stroke-width="1">
-    ${Array.from({ length: 12 }, (_, i) => {
-      const angle = (i * 30 * Math.PI) / 180
-      const x1 = 200 + 160 * Math.cos(angle)
-      const y1 = 200 + 160 * Math.sin(angle)
-      const x2 = 200 + 80 * Math.cos(angle + Math.PI / 12)
-      const y2 = 200 + 80 * Math.sin(angle + Math.PI / 12)
-      return `<line x1="200" y1="200" x2="${x1.toFixed(1)}" y2="${y1.toFixed(1)}" /><ellipse cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" rx="18" ry="8" transform="rotate(${i * 30 + 15} ${x2.toFixed(1)} ${y2.toFixed(1)})" />`
-    }).join('')}
-    <circle cx="200" cy="200" r="60" />
-    <circle cx="200" cy="200" r="100" stroke-dasharray="6 8" />
-    <circle cx="200" cy="200" r="150" stroke-dasharray="4 12" />
-    <circle cx="200" cy="200" r="30" />
-  </g>
-</svg>`
-
-const MANDALA_DATA_URL = `data:image/svg+xml,${encodeURIComponent(MANDALA_SVG)}`
-
-// Bell SVG for Shiva theme
-const BELL_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <g fill="none" stroke="currentColor" stroke-width="1.5">
-    <path d="M50 10 Q30 15 28 40 Q26 60 20 70 L80 70 Q74 60 72 40 Q70 15 50 10Z" />
-    <line x1="50" y1="5" x2="50" y2="12" />
-    <ellipse cx="50" cy="74" rx="12" ry="4" />
-    <circle cx="50" cy="80" r="4" />
-  </g>
-</svg>`
-
-const BELL_DATA_URL = `data:image/svg+xml,${encodeURIComponent(BELL_SVG)}`
-
-// Om symbol for card
-const OM_SYMBOL = 'ॐ'
-
-function formatDate(iso: string): string {
-  if (!iso) return ''
-  const [y, m, d] = iso.split('-')
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  return `${d} ${months[parseInt(m, 10) - 1]} ${y}`
-}
-
-function urgencyColor(days: number, isShiva: boolean): string {
-  if (days < 0) return isShiva ? '#FF6B6B' : '#DC2626'
-  if (days <= 7) return isShiva ? '#FFB347' : '#D97706'
-  if (days <= 30) return isShiva ? '#FFD700' : '#D4AF37'
-  return isShiva ? '#90EE90' : '#16A34A'
-}
-
 /**
- * Single reusable template renderer.
- * Rendered at exactly 1080×1350px off-screen, then captured via html-to-image.
- * Three templates are config/data (templateConfigs.ts), not separate components.
+ * Single reusable renderer. All three templates are config/data only —
+ * no duplicated rendering logic.
+ *
+ * Rendered off-screen at 1080×1350px; captured by html-to-image after
+ * document.fonts.ready resolves (guard lives in lib/capture.ts).
  */
 const TemplateRenderer = React.forwardRef<HTMLDivElement, TemplateRendererProps>(
   ({ devotee, template, settings, qrDataUrl }, ref) => {
     const s = template.styles
-    const isShiva = template.id === 'shiva'
-    const isMinimal = template.id === 'minimal'
     const days = devotee.daysRemaining
-    const urg = urgencyColor(days, isShiva)
+    const isLight = template.id !== 'shiva'
 
-    const urgencyLabel = days < 0 ? 'EXPIRED' : days === 0 ? 'EXPIRES TODAY' : days <= 7 ? 'URGENT' : days <= 30 ? 'DUE SOON' : 'UPCOMING'
+    const urgencyColor = days < 0 ? '#DC2626' : days <= 7 ? '#D97706' : days <= 30 ? '#CA8A04' : '#16A34A'
 
-    // Decoration: mandala for classic/minimal, bells for shiva
-    const decorSrc = isShiva ? BELL_DATA_URL : MANDALA_DATA_URL
+    const daysLabel = days < 0
+      ? `${Math.abs(days)} days overdue`
+      : days === 0 ? 'Expires today'
+      : `${days} days`
+
+    // Greeting: personalise with devotee name coloured
+    const greetingName = devotee.name
 
     return (
       <div
@@ -83,478 +235,410 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, TemplateRendererProps>
           height: '1350px',
           position: 'relative',
           overflow: 'hidden',
-          fontFamily: s.fontFamily,
           background: s.outerBg,
+          fontFamily: s.fontFamily,
           boxSizing: 'border-box',
         }}
       >
-        {/* Background pattern layer */}
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: s.outerBgPattern,
-          pointerEvents: 'none',
-        }} />
+        {/* Background texture overlay */}
+        <div style={{ position: 'absolute', inset: 0, background: s.bgPattern, pointerEvents: 'none' }} />
 
-        {/* Decorative motif — top center, large & faint */}
-        <div style={{
-          position: 'absolute',
-          top: isShiva ? -60 : -80,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: isShiva ? 320 : 480,
-          height: isShiva ? 320 : 480,
-          opacity: s.decorationOpacity,
-          backgroundImage: `url("${decorSrc}")`,
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-          filter: `sepia(1) saturate(3) hue-rotate(${isShiva ? 180 : 30}deg)`,
-          pointerEvents: 'none',
-        }} />
+        {/* ── ORNAMENTAL BORDER FRAME ────────────────────────────── */}
+        {/* Outer line */}
+        <div style={{ position: 'absolute', inset: '10px', border: `2.5px solid ${s.borderColor}`, borderRadius: '4px', pointerEvents: 'none', zIndex: 20 }} />
+        {/* Inner line */}
+        <div style={{ position: 'absolute', inset: '18px', border: `1px solid ${s.borderColor}`, borderRadius: '2px', opacity: 0.45, pointerEvents: 'none', zIndex: 20 }} />
 
-        {/* Decorative motif — bottom corners */}
-        {[{ left: -60, bottom: -60 }, { right: -60, bottom: -60 }].map((pos, i) => (
-          <div key={i} style={{
-            position: 'absolute',
-            ...pos,
-            width: 200,
-            height: 200,
-            opacity: s.decorationOpacity * 0.7,
-            backgroundImage: `url("${decorSrc}")`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            filter: `sepia(1) saturate(3) hue-rotate(${isShiva ? 180 : 30}deg)`,
-            pointerEvents: 'none',
-          }} />
-        ))}
+        {/* Corner ornaments */}
+        <div style={{ position: 'absolute', top: 0, left: 0, zIndex: 21 }}>
+          <CornerOrnament color={s.borderColor} />
+        </div>
+        <div style={{ position: 'absolute', top: 0, right: 0, zIndex: 21, transform: 'scaleX(-1)' }}>
+          <CornerOrnament color={s.borderColor} />
+        </div>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, zIndex: 21, transform: 'scaleY(-1)' }}>
+          <CornerOrnament color={s.borderColor} />
+        </div>
+        <div style={{ position: 'absolute', bottom: 0, right: 0, zIndex: 21, transform: 'scale(-1,-1)' }}>
+          <CornerOrnament color={s.borderColor} />
+        </div>
 
-        {/* Outer gold/silver border frame */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          border: `6px solid transparent`,
-          borderImage: `${s.borderGradient} 1`,
-          pointerEvents: 'none',
-          zIndex: 10,
-        }} />
+        {/* ── INNER CONTENT (padded from border) ────────────────── */}
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', height: '100%', padding: '28px 36px 0' }}>
 
-        {/* Inner double-line border */}
-        <div style={{
-          position: 'absolute',
-          inset: '18px',
-          border: `1.5px solid ${s.borderColor}`,
-          opacity: 0.5,
-          pointerEvents: 'none',
-          zIndex: 10,
-        }} />
-        <div style={{
-          position: 'absolute',
-          inset: '24px',
-          border: `0.5px solid ${s.borderColor}`,
-          opacity: 0.25,
-          pointerEvents: 'none',
-          zIndex: 10,
-        }} />
+          {/* ── HEADER: temple image | logo+name | bell ─────────── */}
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', height: '220px', flexShrink: 0 }}>
 
-        {/* ── HEADER ─────────────────────────────────────────────── */}
-        <div style={{
-          background: s.headerBg,
-          padding: isMinimal ? '36px 56px 28px' : '32px 56px 26px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '24px',
-          borderBottom: isMinimal ? `2px solid ${s.borderColor}` : 'none',
-          position: 'relative',
-          zIndex: 2,
-        }}>
-          {/* Temple Logo */}
-          <div style={{
-            width: '90px',
-            height: '90px',
-            flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: '50%',
-            border: `2px solid ${s.accentColor}`,
-            background: isMinimal ? 'rgba(212,175,55,0.1)' : 'rgba(255,255,255,0.1)',
-            overflow: 'hidden',
-          }}>
-            {settings.templeLogoBase64 ? (
-              <img
-                src={settings.templeLogoBase64}
-                alt="Temple Logo"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            ) : (
-              <span style={{
-                fontSize: '42px',
-                lineHeight: 1,
-                color: isMinimal ? '#D4AF37' : s.headerTextColor,
-                fontFamily: "'Noto Serif Devanagari', serif",
-              }}>{OM_SYMBOL}</span>
-            )}
-          </div>
-
-          {/* Temple name + Om Namah Shivaya */}
-          <div style={{ flex: 1, minWidth: 0 }}>
+            {/* Left: temple image */}
             <div style={{
-              fontFamily: s.headingFont,
-              fontSize: '15px',
-              letterSpacing: '3px',
-              textTransform: 'uppercase',
-              color: s.accentColor,
-              marginBottom: '6px',
-              opacity: 0.9,
+              width: '160px',
+              height: '210px',
+              flexShrink: 0,
+              borderRadius: '8px',
+              overflow: 'hidden',
+              border: `2px solid ${s.borderColor}`,
+              background: isLight
+                ? 'linear-gradient(160deg, #E8D8A8 0%, #C8B080 100%)'
+                : 'linear-gradient(160deg, #1A2B44 0%, #0D1A2E 100%)',
             }}>
-              {OM_SYMBOL} Namah Shivaya
+              {settings.templeImageBase64 ? (
+                <img src={settings.templeImageBase64} alt="Temple" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+              ) : (
+                /* Placeholder gopuram SVG */
+                <svg viewBox="0 0 160 210" width="160" height="210">
+                  <defs>
+                    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor={isLight ? '#87CEEB' : '#0A1628'}/>
+                      <stop offset="100%" stopColor={isLight ? '#FFF8E7' : '#1A2B44'}/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="160" height="210" fill="url(#skyGrad)"/>
+                  {/* Gopuram silhouette */}
+                  <g fill={isLight ? '#8B1A1A' : '#3A5A7A'} opacity="0.9">
+                    {/* Base */}
+                    <rect x="20" y="170" width="120" height="40"/>
+                    {/* First tier */}
+                    <rect x="30" y="140" width="100" height="35"/>
+                    {/* Second tier */}
+                    <rect x="40" y="112" width="80" height="32"/>
+                    {/* Third tier */}
+                    <rect x="50" y="88" width="60" height="28"/>
+                    {/* Fourth tier */}
+                    <rect x="58" y="68" width="44" height="24"/>
+                    {/* Fifth tier */}
+                    <rect x="64" y="52" width="32" height="20"/>
+                    {/* Spire */}
+                    <rect x="72" y="36" width="16" height="20"/>
+                    {/* Top kalash */}
+                    <ellipse cx="80" cy="33" rx="10" ry="7"/>
+                    <ellipse cx="80" cy="26" rx="6" ry="5"/>
+                    <ellipse cx="80" cy="20" rx="4" ry="4"/>
+                    <line x1="80" y1="16" x2="80" y2="8" stroke={isLight ? '#C8A84B' : '#8AAEC8'} strokeWidth="2"/>
+                  </g>
+                  {/* Gold decorative lines on tiers */}
+                  <g stroke={isLight ? '#C8A84B' : '#6A90B0'} strokeWidth="1" opacity="0.6">
+                    <line x1="30" y1="155" x2="130" y2="155"/>
+                    <line x1="40" y1="126" x2="120" y2="126"/>
+                    <line x1="50" y1="100" x2="110" y2="100"/>
+                    <line x1="58" y1="78" x2="102" y2="78"/>
+                  </g>
+                  {/* Label */}
+                  <text x="80" y="205" textAnchor="middle" fontSize="9" fill={isLight ? '#C8A84B' : '#6A90B0'} fontFamily="serif">Sri Balagurunadheeswara</text>
+                </svg>
+              )}
             </div>
-            <div style={{
-              fontFamily: s.headingFont,
-              fontSize: '26px',
-              fontWeight: 700,
-              color: s.headerTextColor,
-              lineHeight: 1.2,
-              letterSpacing: '0.5px',
-            }}>
-              {settings.templeName}
-            </div>
-            {settings.templeAddress && (
+
+            {/* Center: logo + temple name + Om Namah Shivaya */}
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: '10px', paddingTop: '8px' }}>
+              {/* Logo */}
               <div style={{
-                fontSize: '12px',
-                color: s.headerSubColor,
-                marginTop: '4px',
-                opacity: 0.8,
-                letterSpacing: '0.3px',
+                width: '76px', height: '76px',
+                borderRadius: '50%',
+                border: `2px solid ${s.borderColor}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: isLight ? 'rgba(200,168,75,0.12)' : 'rgba(100,150,200,0.12)',
+                overflow: 'hidden',
+                flexShrink: 0,
               }}>
-                {settings.templeAddress}
+                {settings.templeLogoBase64 ? (
+                  <img src={settings.templeLogoBase64} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  /* Shivalinga placeholder */
+                  <svg viewBox="0 0 60 60" width="60" height="60">
+                    <ellipse cx="30" cy="44" rx="22" ry="8" fill={isLight ? '#8B1A1A' : '#3A5A7A'} opacity="0.3"/>
+                    <rect x="14" y="28" width="32" height="18" rx="3" fill={isLight ? '#8B1A1A' : '#3A5A7A'}/>
+                    <ellipse cx="30" cy="24" rx="12" ry="16" fill={isLight ? '#6B1414' : '#2A4060'}/>
+                    <path d="M26 10 L30 2 L34 10" stroke={isLight ? '#C8A84B' : '#8AAEC8'} strokeWidth="2" fill="none"/>
+                    <circle cx="30" cy="2" r="3" fill={isLight ? '#C8A84B' : '#8AAEC8'}/>
+                  </svg>
+                )}
               </div>
-            )}
-          </div>
 
-          {/* Urgency badge */}
-          <div style={{
-            background: urg,
-            color: '#fff',
-            fontFamily: s.fontFamily,
-            fontSize: '11px',
-            fontWeight: 700,
-            letterSpacing: '1.5px',
-            padding: '6px 14px',
-            borderRadius: '4px',
-            alignSelf: 'flex-start',
-            flexShrink: 0,
-            boxShadow: `0 2px 8px ${urg}55`,
-          }}>
-            {urgencyLabel}
-          </div>
-        </div>
+              {/* Temple name */}
+              <div style={{
+                fontFamily: s.headingFont,
+                fontSize: '28px',
+                fontWeight: 800,
+                color: s.templeNameColor,
+                lineHeight: 1.15,
+                letterSpacing: '0.5px',
+                textTransform: 'uppercase',
+              }}>
+                {settings.templeName}
+              </div>
 
-        {/* ── TEMPLE IMAGE STRIP ─────────────────────────────────── */}
-        {settings.templeImageBase64 && (
-          <div style={{
-            height: '140px',
-            overflow: 'hidden',
-            position: 'relative',
-            zIndex: 1,
-          }}>
-            <img
-              src={settings.templeImageBase64}
-              alt="Temple"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%' }}
-            />
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: `linear-gradient(to bottom, transparent 50%, ${isShiva ? '#0A1628' : isMinimal ? '#fff' : '#FDF8F0'}CC)`,
-            }} />
-          </div>
-        )}
+              {/* Gold divider with diamond */}
+              <DiamondDivider color={s.borderColor} />
 
-        {/* ── RENEWAL REMINDER TITLE ─────────────────────────────── */}
-        <div style={{
-          background: s.bodyBg,
-          padding: '28px 56px 0',
-          textAlign: 'center',
-          position: 'relative',
-          zIndex: 2,
-        }}>
-          <div style={{
-            display: 'inline-block',
-            borderBottom: `2px solid ${s.accentColor}`,
-            paddingBottom: '10px',
-          }}>
-            <div style={{
-              fontFamily: s.headingFont,
-              fontSize: '32px',
-              fontWeight: 700,
-              color: isShiva ? s.devoteeName : s.highlightText,
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-            }}>
-              Renewal Reminder
+              {/* Om Namah Shivaya */}
+              <div style={{
+                fontFamily: s.headingFont,
+                fontSize: '17px',
+                fontStyle: 'italic',
+                color: s.omNameColor,
+                letterSpacing: '0.5px',
+              }}>
+                || Om Namah Shivaya ||
+              </div>
+            </div>
+
+            {/* Right: decorative bell */}
+            <div style={{ width: '130px', flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '6px' }}>
+              <svg viewBox="0 0 100 180" width="100" height="180">
+                {/* Chain links */}
+                {[0,1,2,3].map(i => (
+                  <ellipse key={i} cx="50" cy={12 + i * 12} rx="4" ry="6" fill="none" stroke={s.borderColor} strokeWidth="2"/>
+                ))}
+                {/* Bell body */}
+                <path d={`M50 55 Q25 62 22 90 Q18 115 15 130 L85 130 Q82 115 78 90 Q75 62 50 55Z`}
+                  fill={isLight ? '#C8A84B' : '#5A7A9A'} stroke={s.borderColor} strokeWidth="1.5"/>
+                {/* Bell sheen */}
+                <path d="M42 65 Q36 80 36 100" stroke="rgba(255,255,255,0.4)" strokeWidth="4" strokeLinecap="round" fill="none"/>
+                {/* Bell rim */}
+                <ellipse cx="50" cy="130" rx="35" ry="8" fill={isLight ? '#B8921A' : '#4A6A8A'} stroke={s.borderColor} strokeWidth="1"/>
+                {/* Clapper */}
+                <line x1="50" y1="130" x2="50" y2="148" stroke={s.borderColor} strokeWidth="2.5"/>
+                <circle cx="50" cy="151" r="7" fill={isLight ? '#B8921A' : '#4A6A8A'} stroke={s.borderColor} strokeWidth="1"/>
+                {/* Band decoration */}
+                <path d="M22 108 Q50 100 78 108" stroke={s.borderColor} strokeWidth="1.5" fill="none"/>
+              </svg>
             </div>
           </div>
 
-          {/* Accent divider */}
+          {/* ── GREETING ──────────────────────────────────────────── */}
+          <div style={{ textAlign: 'center', padding: '18px 40px 12px', flexShrink: 0 }}>
+            <div style={{
+              fontFamily: s.headingFont,
+              fontSize: '30px',
+              color: s.greetingTextColor,
+              marginBottom: '6px',
+            }}>
+              Namaskara{' '}
+              <span style={{ color: s.greetingNameColor, fontWeight: 700 }}>{greetingName}</span>,
+            </div>
+            <div style={{
+              fontSize: '15px',
+              color: s.greetingTextColor,
+              opacity: 0.8,
+              lineHeight: 1.5,
+              maxWidth: '620px',
+              margin: '0 auto',
+            }}>
+              We sincerely thank you for your devotion and continued support towards the temple.
+            </div>
+          </div>
+
+          <div style={{ flexShrink: 0, padding: '4px 0 12px' }}>
+            <DiamondDivider color={s.borderColor} />
+          </div>
+
+          {/* ── RENEWAL REMINDER ROW ──────────────────────────────── */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: '12px',
-            marginTop: '16px',
+            gap: '16px',
+            padding: '0 48px 14px',
+            flexShrink: 0,
           }}>
-            <div style={{ height: '1px', width: '80px', background: `linear-gradient(to right, transparent, ${s.accentColor})` }} />
-            <span style={{ color: s.accentColor, fontSize: '18px' }}>✦</span>
-            <div style={{ height: '1px', width: '80px', background: `linear-gradient(to left, transparent, ${s.accentColor})` }} />
-          </div>
-        </div>
-
-        {/* ── DEVOTEE NAME ───────────────────────────────────────── */}
-        <div style={{
-          background: s.bodyBg,
-          padding: '20px 56px 16px',
-          textAlign: 'center',
-          position: 'relative',
-          zIndex: 2,
-        }}>
-          <div style={{
-            fontFamily: s.headingFont,
-            fontSize: '52px',
-            fontWeight: 800,
-            color: s.devoteeName,
-            lineHeight: 1.1,
-            letterSpacing: '1px',
-          }}>
-            {devotee.name}
-          </div>
-          {devotee.village && (
-            <div style={{
-              fontSize: '15px',
-              color: s.labelColor,
-              marginTop: '6px',
-              letterSpacing: '0.5px',
-            }}>
-              {devotee.village}
+            <IconBadge bg={s.reminderIconBg}>
+              <SvgCalendar />
+            </IconBadge>
+            <div style={{ fontSize: '16px', color: s.greetingTextColor, lineHeight: 1.5 }}>
+              This is a gentle reminder that your seva/service is due for{' '}
+              <span style={{ fontWeight: 700, color: s.reminderHighlight }}>renewal.</span>
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* ── MAIN DETAILS CARD ──────────────────────────────────── */}
-        <div style={{
-          background: s.bodyBg,
-          padding: '8px 56px 0',
-          position: 'relative',
-          zIndex: 2,
-        }}>
+          {/* ── DETAIL GRID ───────────────────────────────────────── */}
           <div style={{
-            background: s.highlightBg,
-            border: `1px solid ${s.accentColor}40`,
+            margin: '0 4px 14px',
             borderRadius: '12px',
-            padding: '28px 36px',
+            border: `1.5px solid ${s.gridBorderColor}`,
+            background: s.gridBg,
+            overflow: 'hidden',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
-            gap: '20px 40px',
+            flexShrink: 0,
           }}>
-            {[
-              { label: 'Service', value: devotee.service },
-              { label: 'Expiry Date', value: formatDate(devotee.expiryDate) },
-              { label: 'Days Remaining', value: days < 0 ? `${Math.abs(days)} days overdue` : `${days} days`, color: urg },
-              { label: 'Renewal Amount', value: `₹ ${devotee.amount}`, bold: true },
-            ].map((item, i) => (
-              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+            <GridCell
+              icon={<IconBadge bg={s.iconCircle1}><SvgPray /></IconBadge>}
+              label="Service"
+              value={devotee.service}
+              labelColor={s.gridLabelColor}
+              valueColor={s.gridValueColor}
+              borderRight borderBottom
+              borderColor={s.gridBorderColor}
+            />
+            <GridCell
+              icon={<IconBadge bg={s.iconCircle2}><SvgCalendar /></IconBadge>}
+              label="Expiry Date"
+              value={formatDate(devotee.expiryDate)}
+              labelColor={s.gridLabelColor}
+              valueColor={s.gridValueColor}
+              borderBottom
+              borderColor={s.gridBorderColor}
+            />
+            <GridCell
+              icon={<IconBadge bg={s.iconCircle1}><SvgClock /></IconBadge>}
+              label="Days Remaining"
+              value={daysLabel}
+              labelColor={s.gridLabelColor}
+              valueColor={urgencyColor}
+              borderRight borderBottom
+              borderColor={s.gridBorderColor}
+            />
+            <GridCell
+              icon={<IconBadge bg={s.iconCircle2}><SvgRupee /></IconBadge>}
+              label="Amount"
+              value={`₹ ${devotee.amount}`}
+              labelColor={s.gridLabelColor}
+              valueColor={s.gridValueColor}
+              borderBottom
+              borderColor={s.gridBorderColor}
+            />
+            <GridCell
+              icon={<IconBadge bg={s.iconCircle1}><SvgDome /></IconBadge>}
+              label="Devotee ID"
+              value={devotee.devoteeId || devotee.mobile}
+              labelColor={s.gridLabelColor}
+              valueColor={s.gridValueColor}
+              borderRight
+              borderColor={s.gridBorderColor}
+            />
+            <GridCell
+              icon={<IconBadge bg={s.iconCircle2}><SvgHeart /></IconBadge>}
+              label="Thank You"
+              value="For being a part of our temple family."
+              labelColor={s.gridLabelColor}
+              valueColor={s.gridValueColor}
+              borderColor={s.gridBorderColor}
+            />
+          </div>
+
+          {/* ── RENEWAL LINK SECTION ──────────────────────────────── */}
+          <div style={{ padding: '0 4px 12px', flexShrink: 0 }}>
+            {/* Lotus + text */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px', paddingLeft: '4px' }}>
+              <LotusSvg color={s.lotusColor} size={32} />
+              <div style={{ fontSize: '14px', color: s.greetingTextColor, opacity: 0.85 }}>
+                You may renew your seva/service easily using the link below.
+              </div>
+            </div>
+
+            {/* RENEW NOW button + QR */}
+            <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+              {/* Button */}
+              <div style={{
+                flex: 1,
+                background: s.renewBtnBg,
+                borderRadius: '10px',
+                display: 'flex',
+                alignItems: 'center',
+                overflow: 'hidden',
+                height: '64px',
+                border: `1.5px solid ${s.borderColor}`,
+              }}>
                 <div style={{
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  letterSpacing: '1.5px',
-                  textTransform: 'uppercase',
-                  color: s.labelColor,
+                  width: '64px',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  borderRight: `1.5px solid rgba(255,255,255,0.2)`,
                 }}>
-                  {item.label}
+                  <SvgGlobe />
                 </div>
-                <div style={{
-                  fontSize: item.bold ? '24px' : '19px',
-                  fontWeight: item.bold ? 700 : 500,
-                  color: item.color ?? s.valueColor,
-                  fontFamily: item.bold ? s.headingFont : s.fontFamily,
-                  lineHeight: 1.2,
-                }}>
-                  {item.value}
+                <div style={{ padding: '0 20px', flex: 1 }}>
+                  <div style={{
+                    fontFamily: s.fontFamily,
+                    fontSize: '18px',
+                    fontWeight: 800,
+                    color: s.renewBtnText,
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase',
+                  }}>
+                    RENEW NOW
+                  </div>
+                  <div style={{
+                    fontSize: '11px',
+                    color: s.renewBtnText,
+                    opacity: 0.7,
+                    marginTop: '2px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '480px',
+                  }}>
+                    {devotee.renewalLink || settings.templeWebsite || 'Contact temple for renewal'}
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* ── QR + MOBILE ROW ────────────────────────────────────── */}
-        <div style={{
-          background: s.bodyBg,
-          padding: '20px 56px 0',
-          display: 'flex',
-          gap: '32px',
-          alignItems: 'center',
-          position: 'relative',
-          zIndex: 2,
-        }}>
-          {/* QR Code */}
+              {/* QR code */}
+              <div style={{
+                width: '64px',
+                height: '64px',
+                borderRadius: '8px',
+                border: `1.5px solid ${s.borderColor}`,
+                background: '#fff',
+                padding: '4px',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+                <img src={qrDataUrl} alt="QR" style={{ width: '100%', height: '100%', display: 'block' }} />
+              </div>
+            </div>
+          </div>
+
+          {/* ── BLESSING FOOTER ────────────────────────────────────── */}
           <div style={{
-            border: `2px solid ${s.qrBorderColor}`,
-            borderRadius: '10px',
-            padding: '10px',
-            background: '#fff',
             flexShrink: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '6px',
-          }}>
-            <img
-              src={qrDataUrl}
-              alt="QR Code"
-              style={{ width: '170px', height: '170px', display: 'block' }}
-            />
-            <div style={{
-              fontSize: '10px',
-              color: '#888',
-              letterSpacing: '0.5px',
-              textTransform: 'uppercase',
-            }}>
-              Scan to Renew
-            </div>
-          </div>
-
-          {/* Contact info + mobile */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <div style={{
-              fontSize: '13px',
-              color: s.labelColor,
-              letterSpacing: '0.5px',
-              lineHeight: 1.6,
-            }}>
-              Or renew online at:
-            </div>
-            <div style={{
-              fontFamily: s.headingFont,
-              fontSize: '16px',
-              color: s.accentColor,
-              wordBreak: 'break-all',
-              lineHeight: 1.4,
-            }}>
-              {devotee.renewalLink || settings.templeWebsite}
-            </div>
-
-            <div style={{ borderTop: `1px solid ${s.accentColor}30`, paddingTop: '14px' }}>
-              {settings.templePhone && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                  <span style={{ fontSize: '14px', color: s.accentColor }}>📞</span>
-                  <span style={{ fontSize: '17px', fontWeight: 600, color: s.valueColor, letterSpacing: '0.5px' }}>
-                    {settings.templePhone}
-                  </span>
-                </div>
-              )}
-              {devotee.mobile && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ fontSize: '14px', color: s.accentColor }}>📱</span>
-                  <span style={{ fontSize: '16px', color: s.valueColor, letterSpacing: '0.5px' }}>
-                    {devotee.mobile}
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* ── BLESSING MESSAGE ───────────────────────────────────── */}
-        <div style={{
-          background: s.bodyBg,
-          padding: '20px 56px 0',
-          position: 'relative',
-          zIndex: 2,
-        }}>
-          <div style={{
-            background: s.highlightBg,
-            border: `1px solid ${s.accentColor}30`,
-            borderRadius: '8px',
-            padding: '18px 28px',
             textAlign: 'center',
+            padding: '6px 60px 10px',
+            borderTop: `1px solid ${s.borderColor}40`,
           }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px', marginBottom: '8px' }}>
+              <LotusSvg color={s.lotusColor} size={36} />
+              <div style={{
+                fontSize: '15px',
+                color: s.blessingTextColor,
+                lineHeight: 1.55,
+                flex: 1,
+                maxWidth: '680px',
+              }}>
+                {settings.blessingMessage}
+              </div>
+              <LotusSvg color={s.lotusColor} size={36} />
+            </div>
+
+            {/* Om Namah Shivaya */}
             <div style={{
               fontFamily: s.headingFont,
-              fontSize: '16px',
+              fontSize: '18px',
               fontStyle: 'italic',
-              color: s.valueColor,
-              lineHeight: 1.6,
-              opacity: 0.85,
+              color: s.footerOmColor,
+              letterSpacing: '1px',
             }}>
-              "{settings.blessingMessage}"
+              ✦ Om Namah Shivaya ✦
             </div>
-          </div>
-        </div>
 
-        {/* ── FOOTER ─────────────────────────────────────────────── */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          background: s.footerBg,
-          padding: '20px 56px 28px',
-          textAlign: 'center',
-          zIndex: 5,
-          borderTop: isMinimal ? `2px solid ${s.borderColor}` : 'none',
-        }}>
-          {/* Gold divider for non-minimal */}
-          {!isMinimal && (
-            <div style={{
-              height: '1px',
-              background: `linear-gradient(to right, transparent, ${s.accentColor}80, transparent)`,
-              marginBottom: '14px',
-            }} />
-          )}
-
-          <div style={{
-            fontFamily: s.headingFont,
-            fontSize: '18px',
-            fontWeight: 600,
-            color: s.footerTextColor,
-            letterSpacing: '1px',
-            marginBottom: '6px',
-          }}>
-            {settings.templeName}
+            {/* Temple contact */}
+            {(settings.templePhone || settings.templeWebsite) && (
+              <div style={{ fontSize: '12px', color: s.greetingTextColor, opacity: 0.55, marginTop: '6px', letterSpacing: '0.3px' }}>
+                {[settings.templePhone, settings.templeWebsite].filter(Boolean).join('  ·  ')}
+              </div>
+            )}
           </div>
 
-          {settings.templeAddress && (
-            <div style={{
-              fontSize: '12px',
-              color: s.footerTextColor,
-              opacity: 0.7,
-              lineHeight: 1.5,
-              letterSpacing: '0.3px',
-            }}>
-              {settings.templeAddress}
-            </div>
-          )}
+          {/* Spacer to push strip to bottom */}
+          <div style={{ flex: 1 }} />
 
-          {(settings.templePhone || settings.templeWebsite) && (
-            <div style={{
-              fontSize: '12px',
-              color: s.footerTextColor,
-              opacity: 0.7,
-              marginTop: '4px',
-            }}>
-              {[settings.templePhone, settings.templeWebsite].filter(Boolean).join('  ·  ')}
-            </div>
-          )}
-
-          {/* Bottom decorative line */}
-          <div style={{
-            marginTop: '12px',
-            fontSize: '13px',
-            color: s.accentColor,
-            opacity: 0.7,
-            letterSpacing: '3px',
-          }}>
-            {OM_SYMBOL} · · · {OM_SYMBOL}
+          {/* ── BOTTOM LOTUS STRIP ──────────────────────────────────── */}
+          <div style={{ margin: '0 -36px', flexShrink: 0 }}>
+            <LotusStrip color={s.borderColor} bg={s.bottomStripBg} />
           </div>
         </div>
       </div>
@@ -563,5 +647,4 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, TemplateRendererProps>
 )
 
 TemplateRenderer.displayName = 'TemplateRenderer'
-
 export default TemplateRenderer
