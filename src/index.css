@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --gold: #D4AF37;
+    --gold-light: #F0C040;
+    --gold-dark: #B8860B;
+    --cream: #FDF8F0;
+    --maroon: #6B1C1C;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased;
+    background-color: #FDF8F0;
+    color: #2A1F14;
+    font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  }
+
+  .dark body {
+    background-color: #1A1209;
+    color: #E8D9C0;
+  }
+}
+
+@layer components {
+  .btn-gold {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200;
+    background: linear-gradient(135deg, #D4AF37 0%, #F0C040 50%, #B8860B 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+  }
+  .btn-gold:hover {
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+    transform: translateY(-1px);
+  }
+  .btn-gold:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm border-2 transition-all duration-200;
+    border-color: #D4AF37;
+    color: #6B1C1C;
+  }
+  .btn-outline:hover {
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  .card {
+    @apply rounded-2xl p-6;
+    background: rgba(255, 252, 248, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    box-shadow: 0 4px 24px rgba(107, 28, 28, 0.06);
+  }
+
+  .dark .card {
+    background: rgba(30, 20, 10, 0.8);
+    border-color: rgba(212, 175, 55, 0.15);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border text-sm transition-all duration-200 outline-none;
+    background: rgba(255, 252, 248, 0.8);
+    border-color: rgba(212, 175, 55, 0.3);
+    color: #2A1F14;
+  }
+  .input-field:focus {
+    border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    background: #fff;
+  }
+  .dark .input-field {
+    background: rgba(30, 20, 10, 0.6);
+    border-color: rgba(212, 175, 55, 0.2);
+    color: #E8D9C0;
+  }
+
+  .label {
+    @apply block text-xs font-semibold uppercase tracking-wider mb-1.5;
+    color: #7A5C3A;
+  }
+
+  .section-title {
+    @apply font-semibold text-xl;
+    font-family: 'Playfair Display', serif;
+    color: #6B1C1C;
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #D4AF37, transparent);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.4); border-radius: 3px; }
+
+/* Drop zone active */
+.drop-active {
+  border-color: #D4AF37 !important;
+  background: rgba(212, 175, 55, 0.06) !important;
+}
