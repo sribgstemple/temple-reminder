@@ -25,6 +25,25 @@ const EMPTY: FormData = {
   amount: '', renewalLink: '', village: '', address: '', devoteeId: '',
 }
 
+function futureDate(days: number): string {
+  const d = new Date()
+  d.setDate(d.getDate() + days)
+  return d.toISOString().split('T')[0]
+}
+
+const TEST_DEVOTEE: FormData = {
+  name: 'Ramesh Kumar',
+  mobile: '9876543210',
+  service: 'Monthly Archana',
+  expiryDate: futureDate(28),
+  daysRemainingOverride: '',
+  amount: '1500',
+  renewalLink: '',
+  village: 'Bangalore',
+  address: '',
+  devoteeId: 'TMP-001',
+}
+
 function validate(f: FormData): Record<string, string> {
   const errs: Record<string, string> = {}
   if (!f.name.trim()) errs.name = 'Name is required'
@@ -119,12 +138,22 @@ export default function SingleEntryPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="section-title text-2xl flex items-center gap-2">
-          <UserPlus className="w-6 h-6" style={{ color: '#D4AF37' }} />
-          Add Single Devotee
-        </h1>
-        <p className="text-sm mt-1" style={{ color: '#7A5C3A' }}>Manual entry for one devotee</p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="section-title text-2xl flex items-center gap-2">
+            <UserPlus className="w-6 h-6" style={{ color: '#D4AF37' }} />
+            Add Single Devotee
+          </h1>
+          <p className="text-sm mt-1" style={{ color: '#7A5C3A' }}>Manual entry for one devotee</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => { setForm(TEST_DEVOTEE); setErrors({}); setTouched({}) }}
+          className="text-xs px-3 py-1.5 rounded-lg border shrink-0 mt-1"
+          style={{ borderColor: '#D4AF37', color: '#B8860B', background: 'rgba(212,175,55,0.08)' }}
+        >
+          Load test data
+        </button>
       </div>
 
       <form onSubmit={handleSubmit} className="card space-y-0">
