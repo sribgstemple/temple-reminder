@@ -301,6 +301,7 @@ interface CellProps {
   valueColor: string;
   valueBold?: boolean;
   valueSize?: number;
+  noWrap?: boolean;
   cardBg: string;
   cardBorder: string;
   cardShadow: string;
@@ -310,6 +311,7 @@ const Cell = ({
   badge, label, value,
   labelColor, valueColor,
   valueBold = true, valueSize = 34,
+  noWrap = true,
   cardBg: bg, cardBorder, cardShadow,
 }: CellProps) => (
   <div style={{
@@ -334,6 +336,7 @@ const Cell = ({
         fontWeight: valueBold ? 700 : 500,
         color: valueColor, lineHeight: 1.2,
         fontFamily: "'Playfair Display', serif",
+        whiteSpace: noWrap ? "nowrap" : "normal",
       }}>
         {value}
       </div>
@@ -632,7 +635,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               badge={<Badge bg={s.iconCircle2}><IconHeart /></Badge>}
               label="Thank You"
               value="For being a part of our temple family."
-              valueBold={false} valueSize={20}
+              valueBold={false} valueSize={20} noWrap={false}
               labelColor={s.gridLabelColor} valueColor={s.gridValueColor}
               cardBg={cellBg} cardBorder={cellBorder} cardShadow={cellShadow}
             />
