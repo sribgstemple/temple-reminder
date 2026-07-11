@@ -297,7 +297,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           </div>
 
           {/* ── RENEWAL STATUS BADGE ── */}
-          <div style={{ display: "flex", alignItems: "center", gap: 18, flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18, flexShrink: 0 }}>
             {/* Teal pill badge: bell + Renewal */}
             <div style={{
               display: "inline-flex", alignItems: "center", gap: 12,
@@ -337,7 +337,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "18px 22px" }}>
                 <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  width: 78, minWidth: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.maroon,
                   boxShadow: "0 2px 6px rgba(140,31,46,0.4)",
                   display: "flex", alignItems: "center", justifyContent: "center",
@@ -354,7 +354,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
                 <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  width: 78, minWidth: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.gold,
                   boxShadow: "0 2px 6px rgba(201,150,46,0.4)",
                   display: "flex", alignItems: "center", justifyContent: "center",
@@ -375,7 +375,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "18px 22px" }}>
                 <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  width: 78, minWidth: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.gold,
                   boxShadow: "0 2px 6px rgba(201,150,46,0.4)",
                   display: "flex", alignItems: "center", justifyContent: "center",
@@ -392,7 +392,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
                 <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  width: 78, minWidth: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.maroon,
                   boxShadow: "0 2px 6px rgba(140,31,46,0.4)",
                   display: "flex", alignItems: "center", justifyContent: "center",
