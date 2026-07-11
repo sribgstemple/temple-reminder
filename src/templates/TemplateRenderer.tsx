@@ -229,6 +229,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 letterSpacing: "0.04em",
                 lineHeight: 1.25,
                 textAlign: "center",
+                marginTop: 18,
               }}>
                 {settings.templeName}
               </div>
@@ -419,14 +420,13 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               flex: "0 0 70%", padding: "18px 26px",
               borderRight: `1px dashed rgba(216,179,122,0.5)`,
               display: "flex", flexDirection: "column",
-              justifyContent: "flex-start", gap: 8,
+              justifyContent: "center", gap: 10,
               overflow: "hidden",
-              paddingTop: 16,
             }}>
               <div style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                color: C.darkBrown, fontSize: 24,
-                fontWeight: 500, lineHeight: 1.6, letterSpacing: "0.01em",
+                color: C.darkBrown, fontSize: 27,
+                fontWeight: 500, lineHeight: 1.65, letterSpacing: "0.01em",
               }}>
                 {settings.blessingMessage}
               </div>
@@ -435,7 +435,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 fontSize: 26, fontWeight: 800, letterSpacing: "0.04em",
                 whiteSpace: "nowrap",
               }}>
-                Om Sri Balagurunadheeshwaraya Namah
+                ॥ Om Sri Balagurunadheeshwaraya Namah ॥
               </div>
               {settings.templeWebsite && (
                 <div style={{ textAlign: "left" }}>

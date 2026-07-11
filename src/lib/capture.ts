@@ -14,14 +14,10 @@ export async function captureCardElement(element: HTMLElement): Promise<string> 
 
   return toPng(element, {
     width: 1080,
-    height: 1350,
     pixelRatio: 1,
     cacheBust: true,
     style: {
-      // Ensure the element itself matches the capture size
       width: '1080px',
-      height: '1350px',
-      overflow: 'hidden',
     },
   })
 }
@@ -37,8 +33,6 @@ export function createOffscreenContainer(): { container: HTMLDivElement; cleanup
     'top:-9999px',
     'left:-9999px',
     'width:1080px',
-    'height:1350px',
-    'overflow:hidden',
     'pointer-events:none',
     'z-index:-1',
   ].join(';')
