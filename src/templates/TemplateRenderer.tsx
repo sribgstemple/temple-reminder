@@ -212,8 +212,8 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           position: "relative", zIndex: 5,
           height: "100%",
           display: "flex", flexDirection: "column",
-          padding: "50px 45px 45px",
-          gap: 22,
+          padding: "42px 45px 40px",
+          gap: 14,
           boxSizing: "border-box",
         }}>
 
@@ -291,8 +291,8 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           <div style={{
             background: "linear-gradient(135deg, #FAF2E2, #F5EDD8)",
             border: `1px solid rgba(216,179,122,0.33)`,
-            borderRadius: 30, padding: "20px 30px",
-            display: "flex", alignItems: "center", gap: 25,
+            borderRadius: 30, padding: "12px 26px",
+            display: "flex", alignItems: "center", gap: 22,
             flexShrink: 0,
           }}>
             {/* Calendar badge */}
@@ -326,7 +326,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             {/* Row 1: Service | Expiry Date */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
               {/* Service */}
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "20px 28px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.maroon,
@@ -342,7 +342,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               </div>
               {/* Expiry Date */}
               <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "20px 28px",
+                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
                 <div style={{
@@ -366,7 +366,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             {/* Row 2: Days Left | Amount */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
               {/* Days Left */}
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "20px 28px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.maroon,
@@ -382,7 +382,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               </div>
               {/* Amount */}
               <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "20px 28px",
+                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
                 <div style={{
@@ -404,7 +404,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
 
             {/* Row 3: Thank You (full width) */}
-            <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "20px 28px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
               <div style={{
                 width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                 background: "#A85040",
@@ -420,8 +420,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   fontSize: 26, fontWeight: 400, fontStyle: "italic",
                   color: C.darkBrown, lineHeight: 1.5,
                 }}>
-                  Thank you for being a devoted part of our temple family.
-                  May the Lord's blessings be with you always.
+                  Thank you for being a devoted part of our temple family — may Lord's blessings be with you always.
                 </div>
               </div>
             </div>
@@ -438,19 +437,20 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           }}>
             {/* Blessing text (70%) */}
             <div style={{
-              flex: "0 0 70%", padding: "28px 32px",
+              flex: "0 0 70%", padding: "18px 26px",
               borderRight: `1px dashed rgba(216,179,122,0.5)`,
               display: "flex", flexDirection: "column",
-              justifyContent: "center", gap: 18,
+              justifyContent: "center", gap: 14,
+              overflow: "hidden",
             }}>
               <div style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                color: C.darkBrown, fontSize: 33,
-                fontWeight: 500, lineHeight: 1.85, letterSpacing: "0.01em",
+                color: C.darkBrown, fontSize: 30,
+                fontWeight: 500, lineHeight: 1.75, letterSpacing: "0.01em",
               }}>
                 {settings.blessingMessage}
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                 <LotusSmall />
                 <span style={{
                   fontFamily: "'Cinzel', serif", color: C.maroon,
@@ -466,7 +466,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               flex: "0 0 30%",
               display: "flex", flexDirection: "column",
               alignItems: "center", justifyContent: "center",
-              padding: "22px 20px", gap: 12,
+              padding: "14px 16px", gap: 10,
             }}>
               <div style={{
                 fontFamily: "'Cinzel', serif", color: C.maroon,
