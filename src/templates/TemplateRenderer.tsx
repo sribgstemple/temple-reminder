@@ -227,7 +227,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 color: C.maroon,
                 fontSize: 52, fontWeight: 900,
                 letterSpacing: "0.04em",
-                lineHeight: 1.25,
+                lineHeight: 1.15,
                 textAlign: "center",
                 marginTop: 18,
               }}>
@@ -238,7 +238,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 color: C.medBrown,
                 fontSize: 26, letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                marginTop: 2, fontWeight: 500,
+                marginTop: 0, fontWeight: 500,
                 textAlign: "center",
               }}>
                 A Gentle Seva Reminder
