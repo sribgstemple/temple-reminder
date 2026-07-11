@@ -114,7 +114,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
       <div
         ref={ref}
         style={{
-          width: W, height: H,
+          width: W, height: "auto",
           background: C.cream,
           borderRadius: 45,
           position: "relative",
@@ -333,7 +333,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             display: "flex", flexDirection: "column", justifyContent: "space-evenly",
           }}>
             {/* Row 1: Service | Amount */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
@@ -371,7 +371,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
 
             {/* Row 2: Expiry Date | Days Left */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
@@ -432,7 +432,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               </div>
               <div style={{
                 fontFamily: "'Cinzel', serif", color: C.maroon,
-                fontSize: 24, fontWeight: 800, letterSpacing: "0.04em",
+                fontSize: 30, fontWeight: 800, letterSpacing: "0.04em",
                 whiteSpace: "nowrap",
               }}>
                 Om Sri Balagurunadheeshwaraya Namah
@@ -441,13 +441,13 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 <div style={{ textAlign: "left", marginTop: 14 }}>
                   <span style={{
                     fontFamily: "'Lora', serif", color: C.medBrown,
-                    fontSize: 22, fontStyle: "italic",
+                    fontSize: 26, fontStyle: "italic",
                   }}>
                     For more details visit{" "}
                   </span>
                   <span style={{
                     fontFamily: "'Cinzel', serif", color: C.maroon,
-                    fontSize: 22, fontWeight: 600, letterSpacing: "0.02em",
+                    fontSize: 26, fontWeight: 600, letterSpacing: "0.02em",
                   }}>
                     {'www.' + settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '')}
                   </span>
