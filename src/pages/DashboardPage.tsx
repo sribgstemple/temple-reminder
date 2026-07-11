@@ -28,7 +28,7 @@ const actions = [
     to: '/generate',
     icon: Image,
     label: 'Generate Cards',
-    sub: 'Pick template & export PNGs',
+    sub: 'Generate & export reminder PNGs',
     primary: false,
     color: '#4A3728',
     bg: 'rgba(255,252,248,0.7)',
@@ -152,8 +152,8 @@ export default function DashboardPage() {
         <ol className="space-y-2 text-sm" style={{ color: '#7A5C3A' }}>
           {[
             'Upload Excel or add devotees manually',
-            'Pick a card template (Classic / Shiva / Minimal)',
-            'Click Generate — cards render as 1080×1350 PNGs',
+            'Go to Generate Cards and click Generate',
+            'Cards render as 1080×1350 PNGs with UPI QR code',
             'Preview cards, copy WhatsApp messages, download ZIP',
           ].map((step, i) => (
             <li key={i} className="flex items-start gap-3">
