@@ -140,11 +140,6 @@ export default function GeneratePage() {
           <h1 className="section-title text-2xl">Generate Cards</h1>
           <p className="text-sm mt-0.5" style={{ color: '#7A5C3A' }}>{records.length} devotee{records.length !== 1 ? 's' : ''} loaded</p>
         </div>
-        {generatedCards.length > 0 && (
-          <button onClick={() => exportZip(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-gold text-xs px-4 py-2">
-            <Archive className="w-3.5 h-3.5" /> Export ZIP
-          </button>
-        )}
       </div>
 
       {/* Generate button + progress */}
@@ -253,20 +248,7 @@ export default function GeneratePage() {
                     {copiedIdx === previewIdx ? 'Copied!' : 'Copy Message'}
                   </button>
 
-                  {/* UPI pay link */}
-                  <a
-                    href={upiUrl(currentCard.devotee.amount)}
-                    className="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold transition-all"
-                    style={{
-                      background: 'linear-gradient(135deg, #8C1F2E, #6E1422)',
-                      color: '#F5EDD8',
-                      textDecoration: 'none',
-                    }}
-                  >
-                    🔱 Pay Seva Amount via UPI
-                  </a>
-
-                  {/* Devotee summary */}
+                  {/* Devotee summary + UPI link */}
                   <div className="card p-4 text-xs space-y-1" style={{ color: '#7A5C3A' }}>
                     {[
                       ['Service', currentCard.devotee.service],
@@ -279,6 +261,14 @@ export default function GeneratePage() {
                         <span>{v}</span>
                       </div>
                     ))}
+                    <div className="pt-2 border-t" style={{ borderColor: 'rgba(212,175,55,0.2)' }}>
+                      <a
+                        href={upiUrl(currentCard.devotee.amount)}
+                        style={{ color: '#8C1F2E', fontWeight: 600, fontSize: 13, textDecoration: 'underline', textUnderlineOffset: 3 }}
+                      >
+                        🔱 Pay ₹{currentCard.devotee.amount} via UPI
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
