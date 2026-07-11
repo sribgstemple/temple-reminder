@@ -11,8 +11,15 @@ import { exportZip } from '../lib/zip'
 import { saveAs } from 'file-saver'
 import type { DevoteeRecord, GeneratedCard, TempleSettings } from '../types'
 
-const UPI_URL =
-  'upi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&am=null&mam=null&cu=INR'
+const UPI_BASE =
+  'upi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&cu=INR'
+
+function upiUrl(amount: string): string {
+  const amt = parseFloat(amount)
+  return isNaN(amt) || amt <= 0
+    ? `${UPI_BASE}&am=null&mam=null`
+    : `${UPI_BASE}&am=${amt}&mam=${amt}`
+}
 
 function buildWhatsAppMessage(template: string, devotee: DevoteeRecord, settings: TempleSettings): string {
   return template
@@ -50,7 +57,7 @@ export default function GeneratePage() {
       setProgress(Math.round((i / records.length) * 100))
 
       try {
-        const qrDataUrl = await generateQRDataUrl(UPI_URL, { dark: '#1a1a1a', light: '#ffffff' })
+        const qrDataUrl = await generateQRDataUrl(upiUrl(devotee.amount), { dark: '#1a1a1a', light: '#ffffff' })
 
         const { container, cleanup } = createOffscreenContainer()
 
@@ -243,7 +250,7 @@ export default function GeneratePage() {
 
                   {/* UPI pay link */}
                   <a
-                    href={UPI_URL}
+                    href={upiUrl(currentCard.devotee.amount)}
                     className="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold transition-all"
                     style={{
                       background: 'linear-gradient(135deg, #8C1F2E, #6E1422)',
