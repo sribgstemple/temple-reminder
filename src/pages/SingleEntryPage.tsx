@@ -9,20 +9,14 @@ import type { DevoteeRecord } from '../types'
 
 interface FormData {
   name: string
-  mobile: string
   service: string
   expiryDate: string
   daysRemainingOverride: string
   amount: string
-  renewalLink: string
-  village: string
-  address: string
-  devoteeId: string
 }
 
 const EMPTY: FormData = {
-  name: '', mobile: '', service: '', expiryDate: '', daysRemainingOverride: '',
-  amount: '', renewalLink: '', village: '', address: '', devoteeId: '',
+  name: '', service: '', expiryDate: '', daysRemainingOverride: '', amount: '',
 }
 
 function futureDate(days: number): string {
@@ -33,21 +27,15 @@ function futureDate(days: number): string {
 
 const TEST_DEVOTEE: FormData = {
   name: 'Ramesh Kumar',
-  mobile: '9876543210',
   service: 'Monthly Archana',
   expiryDate: futureDate(28),
   daysRemainingOverride: '',
   amount: '1500',
-  renewalLink: '',
-  village: 'Bangalore',
-  address: '',
-  devoteeId: 'TMP-001',
 }
 
 function validate(f: FormData): Record<string, string> {
   const errs: Record<string, string> = {}
   if (!f.name.trim()) errs.name = 'Name is required'
-  if (!f.mobile.replace(/\D/g, '').slice(-10).match(/^\d{10}$/)) errs.mobile = 'Enter 10-digit mobile number'
   if (!f.service.trim()) errs.service = 'Service is required'
   if (!f.expiryDate) errs.expiryDate = 'Expiry date is required'
   if (!f.amount.trim()) errs.amount = 'Amount is required'
@@ -63,7 +51,7 @@ export default function SingleEntryPage() {
 
   const calcedDays = form.expiryDate ? calcDaysRemainingFromDate(form.expiryDate) : null
 
-  const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm(f => ({ ...f, [field]: e.target.value }))
     setTouched(t => ({ ...t, [field]: true }))
     setErrors(prev => { const n = { ...prev }; delete n[field]; return n })
@@ -84,15 +72,10 @@ export default function SingleEntryPage() {
     const record: DevoteeRecord = {
       id: uuid(),
       name: form.name.trim(),
-      mobile: form.mobile.replace(/\D/g, '').slice(-10),
       service: form.service.trim(),
       expiryDate: form.expiryDate,
       daysRemaining,
       amount: form.amount.trim(),
-      renewalLink: form.renewalLink.trim(),
-      village: form.village.trim() || undefined,
-      address: form.address.trim() || undefined,
-      devoteeId: form.devoteeId.trim() || undefined,
       createdAt: new Date().toISOString(),
       sessionId: sid,
     }
@@ -112,12 +95,12 @@ export default function SingleEntryPage() {
   }
 
   const field = (label: string, key: keyof FormData, opts: {
-    type?: string; placeholder?: string; required?: boolean; hint?: string; wide?: boolean
+    type?: string; placeholder?: string; required?: boolean; hint?: string
   } = {}) => {
-    const { type = 'text', placeholder = '', required = false, hint, wide = false } = opts
+    const { type = 'text', placeholder = '', required = false, hint } = opts
     const err = touched[key] && errors[key]
     return (
-      <div className={wide ? 'sm:col-span-2' : ''}>
+      <div>
         <label className="label">
           {label}{required && <span className="text-red-400 ml-0.5">*</span>}
         </label>
@@ -159,12 +142,12 @@ export default function SingleEntryPage() {
       <form onSubmit={handleSubmit} className="card space-y-0">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {field('Devotee Name', 'name', { required: true, placeholder: 'Full name' })}
-          {field('Mobile', 'mobile', { required: true, type: 'tel', placeholder: '9876543210', hint: '10-digit WhatsApp number' })}
           {field('Service', 'service', { required: true, placeholder: 'e.g. Archana, Monthly Pooja' })}
           {field('Expiry Date', 'expiryDate', { required: true, type: 'date' })}
+          {field('Amount (₹)', 'amount', { required: true, placeholder: '500' })}
 
           {/* Days remaining with auto-calc */}
-          <div>
+          <div className="sm:col-span-2">
             <label className="label">Days Remaining</label>
             <div className="flex gap-2 items-center">
               <input
@@ -183,11 +166,6 @@ export default function SingleEntryPage() {
             </div>
             <div className="text-xs mt-1 opacity-60" style={{ color: '#7A5C3A' }}>Auto-calculated from expiry date; override if needed</div>
           </div>
-
-          {field('Amount (₹)', 'amount', { required: true, placeholder: '500' })}
-          {field('Renewal Link', 'renewalLink', { placeholder: 'https://…', wide: true, hint: 'Payment URL for QR code (can leave blank if using only phone)' })}
-          {field('Village / Area', 'village', { placeholder: 'Optional' })}
-          {field('Devotee ID', 'devoteeId', { placeholder: 'Optional member ID' })}
         </div>
 
         <div className="pt-6">

@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Upload, UserPlus, Image, History, Settings, Moon, Sun, Sparkles } from 'lucide-react'
+import { LayoutDashboard, Upload, UserPlus, Image, History, Settings, Sparkles } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 
 const navItems = [
@@ -11,12 +11,7 @@ const navItems = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ]
 
-interface Props {
-  dark: boolean
-  onToggleDark: () => void
-}
-
-export default function Navigation({ dark, onToggleDark }: Props) {
+export default function Navigation() {
   const { records } = useApp()
   const navigate = useNavigate()
 
@@ -49,9 +44,7 @@ export default function Navigation({ dark, onToggleDark }: Props) {
               end={end}
               className={({ isActive }) =>
                 `flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-150 ${
-                  isActive
-                    ? 'text-maroon-700'
-                    : 'text-stone-500 hover:text-stone-700'
+                  isActive ? 'text-maroon-700' : 'text-stone-500 hover:text-stone-700'
                 }`
               }
               style={({ isActive }) => isActive ? {
@@ -69,15 +62,6 @@ export default function Navigation({ dark, onToggleDark }: Props) {
             </NavLink>
           ))}
         </div>
-
-        {/* Dark mode toggle */}
-        <button
-          onClick={onToggleDark}
-          className="ml-2 p-2 rounded-lg transition-colors hover:bg-amber-50 shrink-0"
-          title="Toggle dark mode"
-        >
-          {dark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-stone-400" />}
-        </button>
       </div>
     </nav>
   )

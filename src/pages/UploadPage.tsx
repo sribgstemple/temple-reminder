@@ -1,9 +1,9 @@
 import { useState, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { FileSpreadsheet, AlertTriangle, CheckCircle2, ArrowRight, X } from 'lucide-react'
+import { FileSpreadsheet, AlertTriangle, CheckCircle2, ArrowRight, X, Download } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { v4 as uuid } from 'uuid'
-import { parseExcel } from '../lib/excel'
+import { parseExcel, downloadXlsxTemplate } from '../lib/excel'
 import { saveSession } from '../lib/storage'
 import { useApp } from '../context/AppContext'
 import type { DevoteeRecord, ExcelRowError } from '../types'
@@ -59,7 +59,7 @@ export default function UploadPage() {
   const handleProceed = async () => {
     if (records.length === 0) return
     const sid = records[0].sessionId
-    const session = {
+    await saveSession({
       id: sid,
       type: 'excel-upload' as const,
       filename: file?.name,
@@ -67,8 +67,7 @@ export default function UploadPage() {
       createdAt: new Date().toISOString(),
       templateId: 'classic',
       records,
-    }
-    await saveSession(session)
+    })
     setRecords(records)
     setSessionId(sid)
     navigate('/generate')
@@ -76,11 +75,21 @@ export default function UploadPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="section-title text-2xl">Upload Excel</h1>
-        <p className="text-sm mt-1" style={{ color: '#7A5C3A' }}>
-          Required columns: Name, Mobile, Service, Expiry Date, Amount, Renewal Link
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="section-title text-2xl">Upload Excel</h1>
+          <p className="text-sm mt-1" style={{ color: '#7A5C3A' }}>
+            Required columns: <strong>Name, Service, Expiry Date, Amount</strong>
+          </p>
+        </div>
+        <button
+          onClick={downloadXlsxTemplate}
+          className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg border shrink-0 mt-1"
+          style={{ borderColor: '#D4AF37', color: '#B8860B', background: 'rgba(212,175,55,0.08)' }}
+        >
+          <Download className="w-3.5 h-3.5" />
+          Download Template
+        </button>
       </div>
 
       {/* Drop zone */}
@@ -113,7 +122,6 @@ export default function UploadPage() {
         </motion.div>
       </div>
 
-      {/* Parsing indicator */}
       {parsing && (
         <div className="flex items-center gap-3 text-sm" style={{ color: '#7A5C3A' }}>
           <div className="w-4 h-4 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: '#D4AF37', borderTopColor: 'transparent' }} />
@@ -121,7 +129,6 @@ export default function UploadPage() {
         </div>
       )}
 
-      {/* Results */}
       <AnimatePresence>
         {parsed && (
           <motion.div
@@ -130,14 +137,12 @@ export default function UploadPage() {
             exit={{ opacity: 0 }}
             className="space-y-4"
           >
-            {/* Summary */}
             <div className="flex items-center gap-3 text-sm font-medium" style={{ color: records.length > 0 ? '#16A34A' : '#DC2626' }}>
               {records.length > 0 ? <CheckCircle2 className="w-5 h-5" /> : <AlertTriangle className="w-5 h-5" />}
               {records.length} valid record{records.length !== 1 ? 's' : ''} from {totalRows} rows
               {errors.length > 0 && ` · ${errors.length} issue${errors.length !== 1 ? 's' : ''}`}
             </div>
 
-            {/* Errors */}
             {errors.length > 0 && (
               <div className="rounded-xl border p-4 space-y-2" style={{ background: 'rgba(220,38,38,0.04)', borderColor: 'rgba(220,38,38,0.2)' }}>
                 <div className="text-xs font-semibold uppercase tracking-wider text-red-600 flex items-center gap-2">
@@ -152,7 +157,6 @@ export default function UploadPage() {
               </div>
             )}
 
-            {/* Preview table */}
             {records.length > 0 && (
               <div className="card overflow-hidden p-0">
                 <div className="px-5 py-3 border-b flex items-center justify-between" style={{ borderColor: 'rgba(212,175,55,0.2)' }}>
@@ -168,7 +172,7 @@ export default function UploadPage() {
                   <table className="w-full text-xs">
                     <thead>
                       <tr style={{ background: 'rgba(212,175,55,0.08)' }}>
-                        {['Name', 'Mobile', 'Service', 'Expiry', 'Days', 'Amount'].map(h => (
+                        {['Name', 'Service', 'Expiry', 'Days', 'Amount'].map(h => (
                           <th key={h} className="px-4 py-2 text-left font-semibold uppercase tracking-wider" style={{ color: '#7A5C3A' }}>{h}</th>
                         ))}
                       </tr>
@@ -177,7 +181,6 @@ export default function UploadPage() {
                       {records.slice(0, 10).map((r, i) => (
                         <tr key={r.id} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(212,175,55,0.03)' }}>
                           <td className="px-4 py-2.5 font-medium" style={{ color: '#3D2B1A' }}>{r.name}</td>
-                          <td className="px-4 py-2.5" style={{ color: '#7A5C3A' }}>{r.mobile}</td>
                           <td className="px-4 py-2.5" style={{ color: '#7A5C3A' }}>{r.service}</td>
                           <td className="px-4 py-2.5" style={{ color: '#7A5C3A' }}>{r.expiryDate}</td>
                           <td className="px-4 py-2.5">
@@ -207,7 +210,6 @@ export default function UploadPage() {
         )}
       </AnimatePresence>
 
-      {/* Column reference */}
       <details className="card">
         <summary className="text-sm font-semibold cursor-pointer" style={{ color: '#6B1C1C' }}>
           Expected column names (click to expand)
@@ -215,15 +217,10 @@ export default function UploadPage() {
         <div className="mt-3 grid grid-cols-2 gap-1 text-xs" style={{ color: '#7A5C3A' }}>
           {[
             ['Name *', 'Devotee name'],
-            ['Mobile *', 'Mobile / Phone / WhatsApp'],
             ['Service *', 'Service / Service Name'],
             ['Expiry Date *', 'Date (DD/MM/YYYY or YYYY-MM-DD)'],
-            ['Amount *', 'Renewal amount (number)'],
-            ['Renewal Link *', 'URL / Payment Link'],
-            ['Days Remaining', 'Auto-calculated if omitted'],
-            ['Village', 'Optional area/locality'],
-            ['Address', 'Optional'],
-            ['Devotee ID', 'Optional member ID'],
+            ['Amount *', 'Renewal amount'],
+            ['Days Remaining', 'Auto-calculated from Expiry Date if omitted'],
           ].map(([col, desc]) => (
             <div key={col} className="flex gap-2">
               <span className="font-mono font-semibold" style={{ color: '#B8860B' }}>{col}</span>

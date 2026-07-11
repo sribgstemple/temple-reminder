@@ -1,36 +1,17 @@
-import { useState, useRef } from 'react'
-import { Settings, Save, Upload, X, Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
+import { Settings, Save, Eye, EyeOff } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useApp } from '../context/AppContext'
 import type { TempleSettings } from '../types'
-
-function imageToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = e => resolve(e.target?.result as string)
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
-}
 
 export default function SettingsPage() {
   const { settings, updateSettings } = useApp()
   const [form, setForm] = useState<TempleSettings>({ ...settings })
   const [saved, setSaved] = useState(false)
   const [showTemplate, setShowTemplate] = useState(false)
-  const logoRef = useRef<HTMLInputElement>(null)
-  const photoRef = useRef<HTMLInputElement>(null)
 
   const set = (key: keyof TempleSettings) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(f => ({ ...f, [key]: e.target.value }))
-    setSaved(false)
-  }
-
-  const handleImageUpload = async (key: 'templeLogoBase64' | 'templeImageBase64', file: File) => {
-    if (!file.type.startsWith('image/')) return
-    if (file.size > 2 * 1024 * 1024) { alert('Image must be under 2 MB'); return }
-    const b64 = await imageToBase64(file)
-    setForm(f => ({ ...f, [key]: b64 }))
     setSaved(false)
   }
 
@@ -83,69 +64,6 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Images */}
-        <div className="card space-y-4">
-          <div className="section-title text-base">Temple Images</div>
-          <div className="gold-divider" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Logo */}
-            <div>
-              <label className="label">Temple Logo (appears in card header)</label>
-              <div className="flex items-start gap-3">
-                <div
-                  className="w-20 h-20 rounded-xl border-2 flex items-center justify-center cursor-pointer overflow-hidden transition-all hover:border-amber-400"
-                  style={{ borderColor: 'rgba(212,175,55,0.4)', background: 'rgba(212,175,55,0.06)' }}
-                  onClick={() => logoRef.current?.click()}
-                >
-                  {form.templeLogoBase64
-                    ? <img src={form.templeLogoBase64} alt="Logo" className="w-full h-full object-cover" />
-                    : <Upload className="w-6 h-6 opacity-40" style={{ color: '#D4AF37' }} />}
-                </div>
-                <div className="space-y-2">
-                  <button onClick={() => logoRef.current?.click()} className="btn-outline text-xs px-3 py-1.5">
-                    <Upload className="w-3.5 h-3.5" /> Upload
-                  </button>
-                  {form.templeLogoBase64 && (
-                    <button onClick={() => setForm(f => ({ ...f, templeLogoBase64: undefined }))} className="flex items-center gap-1 text-xs text-red-400 hover:text-red-500">
-                      <X className="w-3.5 h-3.5" /> Remove
-                    </button>
-                  )}
-                  <div className="text-xs opacity-60" style={{ color: '#7A5C3A' }}>PNG/JPG, max 2 MB</div>
-                </div>
-              </div>
-              <input ref={logoRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleImageUpload('templeLogoBase64', f) }} />
-            </div>
-
-            {/* Temple photo */}
-            <div>
-              <label className="label">Temple Photo (banner strip)</label>
-              <div className="flex items-start gap-3">
-                <div
-                  className="w-32 h-20 rounded-xl border-2 flex items-center justify-center cursor-pointer overflow-hidden transition-all hover:border-amber-400"
-                  style={{ borderColor: 'rgba(212,175,55,0.4)', background: 'rgba(212,175,55,0.06)' }}
-                  onClick={() => photoRef.current?.click()}
-                >
-                  {form.templeImageBase64
-                    ? <img src={form.templeImageBase64} alt="Temple" className="w-full h-full object-cover" />
-                    : <Upload className="w-6 h-6 opacity-40" style={{ color: '#D4AF37' }} />}
-                </div>
-                <div className="space-y-2">
-                  <button onClick={() => photoRef.current?.click()} className="btn-outline text-xs px-3 py-1.5">
-                    <Upload className="w-3.5 h-3.5" /> Upload
-                  </button>
-                  {form.templeImageBase64 && (
-                    <button onClick={() => setForm(f => ({ ...f, templeImageBase64: undefined }))} className="flex items-center gap-1 text-xs text-red-400 hover:text-red-500">
-                      <X className="w-3.5 h-3.5" /> Remove
-                    </button>
-                  )}
-                  <div className="text-xs opacity-60" style={{ color: '#7A5C3A' }}>PNG/JPG, max 2 MB</div>
-                </div>
-              </div>
-              <input ref={photoRef} type="file" accept="image/*" className="hidden" onChange={e => { const f = e.target.files?.[0]; if (f) handleImageUpload('templeImageBase64', f) }} />
-            </div>
-          </div>
-        </div>
-
         {/* Blessing message */}
         <div className="card space-y-4">
           <div className="section-title text-base">Card Content</div>
@@ -183,7 +101,7 @@ export default function SettingsPage() {
               />
               <div className="mt-2 text-xs space-y-0.5" style={{ color: '#7A5C3A' }}>
                 <div className="font-semibold mb-1">Available placeholders:</div>
-                {['{{name}}', '{{service}}', '{{expiryDate}}', '{{daysRemaining}}', '{{amount}}', '{{renewalLink}}', '{{templeName}}', '{{templePhone}}', '{{blessingMessage}}'].map(p => (
+                {['{{name}}', '{{service}}', '{{expiryDate}}', '{{daysRemaining}}', '{{amount}}', '{{templeName}}', '{{templePhone}}', '{{blessingMessage}}'].map(p => (
                   <div key={p} className="font-mono" style={{ color: '#B8860B' }}>{p}</div>
                 ))}
               </div>

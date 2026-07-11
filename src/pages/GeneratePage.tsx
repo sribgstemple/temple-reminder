@@ -3,13 +3,16 @@ import { createRoot } from 'react-dom/client'
 import { ChevronLeft, ChevronRight, Download, Archive, MessageSquare, Check, Copy, Loader2, Image as ImageIcon } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useApp } from '../context/AppContext'
-import { TEMPLATES, getTemplate } from '../templates/templateConfigs'
+import { getTemplate } from '../templates/templateConfigs'
 import TemplateRenderer from '../templates/TemplateRenderer'
 import { captureCardElement, createOffscreenContainer } from '../lib/capture'
 import { generateQRDataUrl } from '../lib/qr'
-import { exportZip, exportMessagesCsv, exportMessagesTxt } from '../lib/zip'
+import { exportZip } from '../lib/zip'
 import { saveAs } from 'file-saver'
 import type { DevoteeRecord, GeneratedCard, TempleSettings } from '../types'
+
+const UPI_URL =
+  'upi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&am=null&mam=null&cu=INR'
 
 function buildWhatsAppMessage(template: string, devotee: DevoteeRecord, settings: TempleSettings): string {
   return template
@@ -18,14 +21,13 @@ function buildWhatsAppMessage(template: string, devotee: DevoteeRecord, settings
     .replace(/\{\{expiryDate\}\}/g, devotee.expiryDate)
     .replace(/\{\{daysRemaining\}\}/g, String(devotee.daysRemaining))
     .replace(/\{\{amount\}\}/g, devotee.amount)
-    .replace(/\{\{renewalLink\}\}/g, devotee.renewalLink)
     .replace(/\{\{templeName\}\}/g, settings.templeName)
     .replace(/\{\{templePhone\}\}/g, settings.templePhone)
     .replace(/\{\{blessingMessage\}\}/g, settings.blessingMessage)
 }
 
 export default function GeneratePage() {
-  const { records, selectedTemplateId, setSelectedTemplateId, generatedCards, setGeneratedCards, settings } = useApp()
+  const { records, generatedCards, setGeneratedCards, settings } = useApp()
   const [generating, setGenerating] = useState(false)
   const [progress, setProgress] = useState(0)
   const [progressLabel, setProgressLabel] = useState('')
@@ -39,7 +41,7 @@ export default function GeneratePage() {
     setProgress(0)
     setGeneratedCards([])
 
-    const template = getTemplate(selectedTemplateId)
+    const template = getTemplate('classic')
     const cards: GeneratedCard[] = []
 
     for (let i = 0; i < records.length; i++) {
@@ -48,16 +50,10 @@ export default function GeneratePage() {
       setProgress(Math.round((i / records.length) * 100))
 
       try {
-        // 1. Generate QR code
-        const qrDataUrl = await generateQRDataUrl(
-          devotee.renewalLink || settings.templeWebsite || 'https://example.com',
-          { dark: template.id === 'shiva' ? '#C0C0C0' : '#1a1a1a', light: '#ffffff' }
-        )
+        const qrDataUrl = await generateQRDataUrl(UPI_URL, { dark: '#1a1a1a', light: '#ffffff' })
 
-        // 2. Create off-screen container
         const { container, cleanup } = createOffscreenContainer()
 
-        // 3. Render TemplateRenderer into it
         await new Promise<void>(resolve => {
           const root = createRoot(container)
           root.render(
@@ -68,17 +64,13 @@ export default function GeneratePage() {
               qrDataUrl={qrDataUrl}
             />
           )
-          // React 18 concurrent rendering — settle after a paint
           requestAnimationFrame(() => requestAnimationFrame(() => resolve()))
         })
 
-        // 4. Capture (guards document.fonts.ready internally)
         const pngDataUrl = await captureCardElement(container.firstElementChild as HTMLElement ?? container)
         cleanup()
 
-        // 5. Build WhatsApp message
         const whatsappMessage = buildWhatsAppMessage(settings.whatsappTemplate, devotee, settings)
-
         cards.push({ devotee, pngDataUrl, whatsappMessage })
       } catch (err) {
         console.error(`Failed for ${devotee.name}:`, err)
@@ -96,7 +88,7 @@ export default function GeneratePage() {
     setPreviewIdx(0)
     setEditedMessages({})
     setGenerating(false)
-  }, [records, selectedTemplateId, settings, setGeneratedCards])
+  }, [records, settings, setGeneratedCards])
 
   const currentCard = generatedCards[previewIdx]
   const currentMessage = editedMessages[previewIdx] ?? currentCard?.whatsappMessage ?? ''
@@ -137,36 +129,10 @@ export default function GeneratePage() {
           <p className="text-sm mt-0.5" style={{ color: '#7A5C3A' }}>{records.length} devotee{records.length !== 1 ? 's' : ''} loaded</p>
         </div>
         {generatedCards.length > 0 && (
-          <div className="flex gap-2 flex-wrap">
-            <button onClick={() => exportMessagesCsv(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-outline text-xs px-3 py-2">CSV</button>
-            <button onClick={() => exportMessagesTxt(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-outline text-xs px-3 py-2">TXT</button>
-            <button onClick={() => exportZip(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-gold text-xs px-4 py-2">
-              <Archive className="w-3.5 h-3.5" /> Export ZIP
-            </button>
-          </div>
+          <button onClick={() => exportZip(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-gold text-xs px-4 py-2">
+            <Archive className="w-3.5 h-3.5" /> Export ZIP
+          </button>
         )}
-      </div>
-
-      {/* Template picker */}
-      <div>
-        <div className="label mb-2">Template</div>
-        <div className="grid grid-cols-3 gap-3">
-          {TEMPLATES.map(t => (
-            <button
-              key={t.id}
-              onClick={() => setSelectedTemplateId(t.id)}
-              className="rounded-xl p-4 text-left transition-all duration-200 border-2"
-              style={{
-                background: t.preview.bg,
-                borderColor: selectedTemplateId === t.id ? t.preview.border : 'transparent',
-                boxShadow: selectedTemplateId === t.id ? `0 0 0 3px ${t.preview.border}33` : 'none',
-              }}
-            >
-              <div className="text-sm font-semibold mb-0.5" style={{ color: t.preview.text }}>{t.name}</div>
-              <div className="text-xs opacity-70 hidden sm:block" style={{ color: t.preview.text }}>{t.description}</div>
-            </button>
-          ))}
-        </div>
       </div>
 
       {/* Generate button + progress */}
@@ -255,7 +221,7 @@ export default function GeneratePage() {
                   </button>
                 </div>
 
-                {/* WhatsApp message editor */}
+                {/* WhatsApp message + UPI link */}
                 <div className="space-y-3">
                   <div className="label flex items-center gap-2">
                     <MessageSquare className="w-3.5 h-3.5" /> WhatsApp Message
@@ -263,7 +229,7 @@ export default function GeneratePage() {
                   <textarea
                     value={currentMessage}
                     onChange={e => setEditedMessages(m => ({ ...m, [previewIdx]: e.target.value }))}
-                    rows={12}
+                    rows={10}
                     className="input-field w-full resize-none text-sm leading-relaxed"
                     style={{ fontFamily: 'inherit' }}
                   />
@@ -275,14 +241,26 @@ export default function GeneratePage() {
                     {copiedIdx === previewIdx ? 'Copied!' : 'Copy Message'}
                   </button>
 
-                  {/* Devotee details summary */}
+                  {/* UPI pay link */}
+                  <a
+                    href={UPI_URL}
+                    className="flex items-center justify-center gap-2 w-full rounded-xl py-3 text-sm font-semibold transition-all"
+                    style={{
+                      background: 'linear-gradient(135deg, #8C1F2E, #6E1422)',
+                      color: '#F5EDD8',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    🔱 Pay Seva Amount via UPI
+                  </a>
+
+                  {/* Devotee summary */}
                   <div className="card p-4 text-xs space-y-1" style={{ color: '#7A5C3A' }}>
                     {[
                       ['Service', currentCard.devotee.service],
                       ['Expiry', currentCard.devotee.expiryDate],
                       ['Days', `${currentCard.devotee.daysRemaining}d`],
                       ['Amount', `₹${currentCard.devotee.amount}`],
-                      ['Mobile', currentCard.devotee.mobile],
                     ].map(([k, v]) => (
                       <div key={k} className="flex gap-2">
                         <span className="font-semibold w-16 shrink-0" style={{ color: '#B8860B' }}>{k}</span>
@@ -300,12 +278,6 @@ export default function GeneratePage() {
               <span className="text-sm font-semibold" style={{ color: '#6B1C1C' }}>Bulk Export:</span>
               <button onClick={() => exportZip(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-gold text-sm px-4 py-2">
                 <Archive className="w-4 h-4" /> ZIP (all PNGs + messages)
-              </button>
-              <button onClick={() => exportMessagesCsv(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-outline text-sm px-4 py-2">
-                Messages CSV
-              </button>
-              <button onClick={() => exportMessagesTxt(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-outline text-sm px-4 py-2">
-                Messages TXT
               </button>
             </div>
           </motion.div>

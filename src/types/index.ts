@@ -1,12 +1,12 @@
 export interface DevoteeRecord {
   id: string
   name: string
-  mobile: string
+  mobile?: string
   service: string
   expiryDate: string        // ISO date string "YYYY-MM-DD"
   daysRemaining: number
   amount: string
-  renewalLink: string
+  renewalLink?: string
   village?: string
   address?: string
   devoteeId?: string

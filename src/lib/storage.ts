@@ -58,7 +58,7 @@ const DEFAULT_SETTINGS: TempleSettings = {
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
   whatsappTemplate:
-    'Namaste {{name}}! 🙏\n\nYour *{{service}}* service at {{templeName}} is expiring on *{{expiryDate}}* ({{daysRemaining}} days remaining).\n\nRenewal Amount: *₹{{amount}}*\n\nRenew here: {{renewalLink}}\n\nContact: {{templePhone}}\n\n{{blessingMessage}} 🔱\n\n– {{templeName}}',
+    'Namaste {{name}}! 🙏\n\nYour *{{service}}* service at {{templeName}} is expiring on *{{expiryDate}}* ({{daysRemaining}} days remaining).\n\nRenewal Amount: *₹{{amount}}*\n\n🔱 Pay Seva Amount via UPI:\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI BALAGURUNADHEESWARA TRUST&mc=8398&am=null&mam=null&cu=INR\n\n{{blessingMessage}} 🔱\n\n– {{templeName}}',
 }
 
 export function loadSettings(): TempleSettings {
