@@ -458,7 +458,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                     fontFamily: "'Cinzel', serif", color: C.maroon,
                     fontSize: 22, fontWeight: 600, letterSpacing: "0.02em",
                   }}>
-                    {settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                    {'www.' + settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
                   </span>
                 </div>
               )}
