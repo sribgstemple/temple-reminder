@@ -83,6 +83,7 @@ export default function SingleEntryPage() {
     await saveSession({
       id: sid,
       type: 'single-entry',
+      filename: form.name.trim(),
       devoteeCount: 1,
       createdAt: new Date().toISOString(),
       templateId: 'classic',
