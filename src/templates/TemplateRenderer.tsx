@@ -101,6 +101,7 @@ const labelStyle: React.CSSProperties = {
   textTransform: "uppercase",
   lineHeight: 1,
   marginBottom: 8,
+  whiteSpace: "nowrap",
 };
 
 // Shared value style for info-grid cells
@@ -218,7 +219,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
         }}>
 
           {/* ── HEADER: deity + temple name ── */}
-          <div style={{ display: "flex", alignItems: "center", gap: 30, flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 30, flexShrink: 0 }}>
             {/* Deity / Temple logo */}
             <div style={{
               flexShrink: 0, width: 175,
@@ -323,28 +324,29 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             overflow: "hidden",
             display: "flex", flexDirection: "column", justifyContent: "space-evenly",
           }}>
-            {/* Row 1: Service | Expiry Date */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-              {/* Service */}
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
-                <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
-                  background: C.maroon,
-                  boxShadow: "0 2px 6px rgba(140,31,46,0.4)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <IconPrayer />
-                </div>
-                <div>
-                  <div style={labelStyle}>Service</div>
-                  <div style={valueStyle}>{devotee.service}</div>
-                </div>
-              </div>
-              {/* Expiry Date */}
+            {/* Row 1: Service — full width */}
+            <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
               <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
-                borderLeft: `1px dashed rgba(216,179,122,0.44)`,
+                width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                background: C.maroon,
+                boxShadow: "0 2px 6px rgba(140,31,46,0.4)",
+                display: "flex", alignItems: "center", justifyContent: "center",
               }}>
+                <IconPrayer />
+              </div>
+              <div>
+                <div style={labelStyle}>Service</div>
+                <div style={valueStyle}>{devotee.service}</div>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
+
+            {/* Row 2: Expiry Date | Days Left */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+              {/* Expiry Date */}
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.gold,
@@ -358,15 +360,11 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   <div style={valueStyle}>{fmtDate(devotee.expiryDate)}</div>
                 </div>
               </div>
-            </div>
-
-            {/* Divider */}
-            <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
-
-            {/* Row 2: Days Left | Amount */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
               {/* Days Left */}
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
+              <div style={{
+                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
+                borderLeft: `1px dashed rgba(216,179,122,0.44)`,
+              }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.maroon,
@@ -380,11 +378,15 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   <div style={{ ...valueStyle, color: uc }}>{daysStr}</div>
                 </div>
               </div>
+            </div>
+
+            {/* Divider */}
+            <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
+
+            {/* Row 3: Amount | Thank You */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
               {/* Amount */}
-              <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
-                borderLeft: `1px dashed rgba(216,179,122,0.44)`,
-              }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.gold,
@@ -398,29 +400,28 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   <div style={valueStyle}>₹ {devotee.amount}</div>
                 </div>
               </div>
-            </div>
-
-            {/* Divider */}
-            <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
-
-            {/* Row 3: Thank You (full width) */}
-            <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
+              {/* Thank You */}
               <div style={{
-                width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
-                background: "#A85040",
-                boxShadow: "0 2px 6px rgba(168,80,64,0.4)",
-                display: "flex", alignItems: "center", justifyContent: "center",
+                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
+                borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
-                <IconHeart />
-              </div>
-              <div>
-                <div style={labelStyle}>Thank You</div>
                 <div style={{
-                  fontFamily: "'Lora', serif",
-                  fontSize: 26, fontWeight: 400, fontStyle: "italic",
-                  color: C.darkBrown, lineHeight: 1.5,
+                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  background: "#A85040",
+                  boxShadow: "0 2px 6px rgba(168,80,64,0.4)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
                 }}>
-                  Thank you for being a devoted part of our temple family — may Lord's blessings be with you always.
+                  <IconHeart />
+                </div>
+                <div>
+                  <div style={labelStyle}>Thank You</div>
+                  <div style={{
+                    fontFamily: "'Lora', serif",
+                    fontSize: 24, fontWeight: 400, fontStyle: "italic",
+                    color: C.darkBrown, lineHeight: 1.5,
+                  }}>
+                    Thank you for being a devoted part of our temple family.
+                  </div>
                 </div>
               </div>
             </div>
