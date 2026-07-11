@@ -153,8 +153,8 @@ export default function DashboardPage() {
           {[
             'Upload Excel or add devotees manually',
             'Go to Generate Cards and click Generate',
-            'Cards render as 1080×1350 PNGs with UPI QR code',
-            'Preview cards, copy WhatsApp messages, download ZIP',
+            'Cards render as PNGs with UPI QR code',
+            'Download single card as PNG or export all cards as ZIP',
           ].map((step, i) => (
             <li key={i} className="flex items-start gap-3">
               <span className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5" style={{ background: 'rgba(212,175,55,0.2)', color: '#B8860B' }}>
