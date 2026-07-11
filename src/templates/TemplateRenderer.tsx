@@ -238,13 +238,13 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 color: C.medBrown,
                 fontSize: 26, letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                marginTop: -10, fontWeight: 500,
+                marginTop: -14, fontWeight: 500,
                 textAlign: "center",
               }}>
                 A Gentle Seva Reminder
               </div>
               {/* Decorative divider */}
-              <div style={{ marginTop: 8 }}>
+              <div style={{ marginTop: 8, paddingBottom: 4 }}>
                 <svg width="100%" height="35" viewBox="0 0 220 14" style={{ display: "block" }}>
                   <line x1="4"   y1="7" x2="88"  y2="7" stroke={C.borderGold} strokeWidth="0.9"/>
                   <polygon points="92,7 97,3.5 102,7 97,10.5" fill={C.gold} opacity="0.8"/>
