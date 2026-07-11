@@ -299,9 +299,9 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             {/* Calendar badge */}
             <div style={{
               width: 82, height: 82, borderRadius: "50%",
-              background: C.maroon, flexShrink: 0,
+              background: "#1B5E6E", flexShrink: 0,
               display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 2px 8px rgba(140,31,46,0.31)",
+              boxShadow: "0 2px 8px rgba(27,94,110,0.35)",
             }}>
               <IconCalendar />
             </div>
