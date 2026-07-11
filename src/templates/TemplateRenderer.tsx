@@ -462,16 +462,16 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 <LotusSmall />
               </div>
               {settings.templeWebsite && (
-                <div style={{ textAlign: "center", marginTop: 4 }}>
+                <div style={{ textAlign: "left", marginTop: 14 }}>
                   <span style={{
                     fontFamily: "'Lora', serif", color: C.medBrown,
-                    fontSize: 17, fontStyle: "italic",
+                    fontSize: 22, fontStyle: "italic",
                   }}>
                     For more details visit{" "}
                   </span>
                   <span style={{
                     fontFamily: "'Cinzel', serif", color: C.maroon,
-                    fontSize: 17, fontWeight: 600, letterSpacing: "0.02em",
+                    fontSize: 22, fontWeight: 600, letterSpacing: "0.02em",
                   }}>
                     {settings.templeWebsite.replace(/^https?:\/\//, '')}
                   </span>
