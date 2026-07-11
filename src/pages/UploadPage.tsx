@@ -78,9 +78,6 @@ export default function UploadPage() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="section-title text-2xl">Upload Excel</h1>
-          <p className="text-sm mt-1" style={{ color: '#7A5C3A' }}>
-            Required columns: <strong>Name, Service, Expiry Date, Amount</strong>
-          </p>
         </div>
         <button
           onClick={downloadXlsxTemplate}
@@ -214,7 +211,7 @@ export default function UploadPage() {
         <summary className="text-sm font-semibold cursor-pointer" style={{ color: '#6B1C1C' }}>
           Expected column names (click to expand)
         </summary>
-        <div className="mt-3 grid grid-cols-2 gap-1 text-xs" style={{ color: '#7A5C3A' }}>
+        <div className="mt-3 space-y-1.5 text-xs" style={{ color: '#7A5C3A' }}>
           {[
             ['Name *', 'Devotee name'],
             ['Service *', 'Service / Service Name'],
@@ -223,7 +220,7 @@ export default function UploadPage() {
             ['Days Remaining', 'Auto-calculated from Expiry Date if omitted'],
           ].map(([col, desc]) => (
             <div key={col} className="flex gap-2">
-              <span className="font-mono font-semibold" style={{ color: '#B8860B' }}>{col}</span>
+              <span className="font-mono font-semibold shrink-0" style={{ color: '#B8860B', minWidth: 120 }}>{col}</span>
               <span className="opacity-70">{desc}</span>
             </div>
           ))}
