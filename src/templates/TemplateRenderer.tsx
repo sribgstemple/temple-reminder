@@ -198,7 +198,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           position: "relative", zIndex: 5,
           height: "100%",
           display: "flex", flexDirection: "column",
-          padding: "42px 45px 28px",
+          padding: "42px 45px 42px",
           gap: 14,
           boxSizing: "border-box",
         }}>
@@ -237,13 +237,13 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 color: C.medBrown,
                 fontSize: 26, letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                marginTop: 10, fontWeight: 500,
+                marginTop: 2, fontWeight: 500,
                 textAlign: "center",
               }}>
                 A Gentle Seva Reminder
               </div>
               {/* Decorative divider */}
-              <div style={{ marginTop: 18 }}>
+              <div style={{ marginTop: 8 }}>
                 <svg width="100%" height="35" viewBox="0 0 220 14" style={{ display: "block" }}>
                   <line x1="4"   y1="7" x2="88"  y2="7" stroke={C.borderGold} strokeWidth="0.9"/>
                   <polygon points="92,7 97,3.5 102,7 97,10.5" fill={C.gold} opacity="0.8"/>
@@ -419,20 +419,20 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               flex: "0 0 70%", padding: "18px 26px",
               borderRight: `1px dashed rgba(216,179,122,0.5)`,
               display: "flex", flexDirection: "column",
-              justifyContent: "flex-start", gap: 10,
+              justifyContent: "flex-start", gap: 8,
               overflow: "hidden",
-              paddingTop: 22,
+              paddingTop: 16,
             }}>
               <div style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                color: C.darkBrown, fontSize: 30,
-                fontWeight: 500, lineHeight: 1.75, letterSpacing: "0.01em",
+                color: C.darkBrown, fontSize: 24,
+                fontWeight: 500, lineHeight: 1.6, letterSpacing: "0.01em",
               }}>
                 {settings.blessingMessage}
               </div>
               <div style={{
                 fontFamily: "'Cinzel', serif", color: C.maroon,
-                fontSize: 30, fontWeight: 800, letterSpacing: "0.04em",
+                fontSize: 26, fontWeight: 800, letterSpacing: "0.04em",
                 whiteSpace: "nowrap",
               }}>
                 Om Sri Balagurunadheeshwaraya Namah
@@ -441,13 +441,13 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 <div style={{ textAlign: "left" }}>
                   <span style={{
                     fontFamily: "'Lora', serif", color: C.medBrown,
-                    fontSize: 26, fontStyle: "italic",
+                    fontSize: 22, fontStyle: "italic",
                   }}>
                     For more details visit{" "}
                   </span>
                   <span style={{
                     fontFamily: "'Cinzel', serif", color: C.maroon,
-                    fontSize: 26, fontWeight: 600, letterSpacing: "0.02em",
+                    fontSize: 22, fontWeight: 600, letterSpacing: "0.02em",
                   }}>
                     {'www.' + settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '')}
                   </span>
