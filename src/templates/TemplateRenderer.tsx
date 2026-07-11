@@ -331,6 +331,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             boxShadow: "0 3px 18px rgba(201,150,46,0.12)",
             overflow: "hidden",
             display: "flex", flexDirection: "column", justifyContent: "space-evenly",
+            padding: "14px 0",
           }}>
             {/* Row 1: Service | Amount */}
             <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
