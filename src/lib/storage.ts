@@ -58,14 +58,21 @@ const DEFAULT_SETTINGS: TempleSettings = {
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
   whatsappTemplate:
-    'Namaste {{name}}! 🙏\n\nYour *{{service}}* service at {{templeName}} is expiring on *{{expiryDate}}* ({{daysRemaining}} days remaining).\n\nRenewal Amount: *₹{{amount}}*\n\n🔱 Pay Seva Amount via UPI:\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI BALAGURUNADHEESWARA TRUST&mc=8398&am=null&mam=null&cu=INR\n\n{{blessingMessage}} 🔱\n\n– {{templeName}}',
+    'Namaste {{name}}! 🙏\n\nYour *{{service}}* service at {{templeName}} is expiring on *{{expiryDate}}* ({{daysRemaining}} days remaining).\n\nRenewal Amount: *₹{{amount}}*\n\n🔱 Pay Seva Amount via UPI:\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&am={{amount}}&mam={{amount}}&cu=INR\n\n{{blessingMessage}} 🔱\n\n– {{templeName}}',
 }
 
 export function loadSettings(): TempleSettings {
   try {
     const raw = localStorage.getItem(SETTINGS_KEY)
     if (!raw) return { ...DEFAULT_SETTINGS }
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) }
+    const saved = JSON.parse(raw)
+    // Migrate old broken UPI URL in whatsapp template
+    if (saved.whatsappTemplate) {
+      saved.whatsappTemplate = saved.whatsappTemplate
+        .replace('pn=SRI BALAGURUNADHEESWARA TRUST', 'pn=SRI%20BALAGURUNADHEESWARA%20TRUST')
+        .replace('&am=null&mam=null&', '&am={{amount}}&mam={{amount}}&')
+    }
+    return { ...DEFAULT_SETTINGS, ...saved }
   } catch {
     return { ...DEFAULT_SETTINGS }
   }
