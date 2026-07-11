@@ -217,30 +217,6 @@ export default function GeneratePage() {
                   </button>
                 </div>
 
-                {/* Devotee summary + UPI link */}
-                <div className="space-y-3">
-                  <div className="card p-4 text-xs space-y-1" style={{ color: '#7A5C3A' }}>
-                    {[
-                      ['Service', currentCard.devotee.service],
-                      ['Expiry', currentCard.devotee.expiryDate],
-                      ['Days', `${currentCard.devotee.daysRemaining}d`],
-                      ['Amount', `₹${currentCard.devotee.amount}`],
-                    ].map(([k, v]) => (
-                      <div key={k} className="flex gap-2">
-                        <span className="font-semibold w-16 shrink-0" style={{ color: '#B8860B' }}>{k}</span>
-                        <span>{v}</span>
-                      </div>
-                    ))}
-                    <div className="pt-2 border-t" style={{ borderColor: 'rgba(212,175,55,0.2)' }}>
-                      <a
-                        href={upiUrl(currentCard.devotee.amount)}
-                        style={{ color: '#8C1F2E', fontWeight: 600, fontSize: 13, textDecoration: 'underline', textUnderlineOffset: 3 }}
-                      >
-                        🔱 Pay ₹{currentCard.devotee.amount} via UPI
-                      </a>
-                    </div>
-                  </div>
-                </div>
               </div>
             )}
 
