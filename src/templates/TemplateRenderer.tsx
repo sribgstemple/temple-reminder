@@ -1,6 +1,6 @@
 import React from "react";
 import type { DevoteeRecord, TemplateConfig, TempleSettings } from "../types";
-import godImage from "../assets/god.png";
+import godImage from "../assets/god-photo.png";
 
 // Card dimensions for PNG export
 const W = 1080;
@@ -77,11 +77,6 @@ const IconRupee = () => (
   </svg>
 );
 
-const IconHeart = () => (
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="white" stroke="none">
-    <path d="M12 21C12 21 3 14 3 8.5C3 5.4 5.4 3 8.5 3C10.2 3 11.7 3.8 12 5C12.3 3.8 13.8 3 15.5 3C18.6 3 21 5.4 21 8.5C21 14 12 21 12 21Z"/>
-  </svg>
-);
 
 const LotusSmall = () => (
   <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
@@ -240,9 +235,10 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               <div style={{
                 fontFamily: "'Cinzel', serif",
                 color: C.maroon,
-                fontSize: 40, fontWeight: 900,
+                fontSize: 46, fontWeight: 900,
                 letterSpacing: "0.04em",
                 lineHeight: 1.3,
+                textAlign: "center",
               }}>
                 {settings.templeName}
               </div>
@@ -277,7 +273,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 color: C.darkBrown,
                 fontSize: 48, fontWeight: 600, lineHeight: 1.3,
               }}>
-                Namaskara,{" "}
+                Namaste,{" "}
                 <span style={{ color: C.maroon, fontWeight: 800 }}>{devotee.name}</span>
               </div>
             ) : (
@@ -287,7 +283,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   color: C.darkBrown,
                   fontSize: 48, fontWeight: 600, lineHeight: 1.3,
                 }}>
-                  Namaskara,
+                  Namaste,
                 </div>
                 <div style={{
                   fontFamily: "'Cormorant Garamond', serif",
@@ -329,7 +325,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               fontFamily: "'Lora', serif",
               color: C.darkBrown, fontSize: 33, lineHeight: 1.65,
             }}>
-              Your seva / service is due for{" "}
+              Your Seva / Service is due for{" "}
               <strong style={{ fontFamily: "'Cinzel', serif", color: C.maroon }}>renewal</strong>.
             </div>
           </div>
@@ -344,19 +340,38 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             overflow: "hidden",
             display: "flex", flexDirection: "column", justifyContent: "space-evenly",
           }}>
-            {/* Row 1: Service — full width */}
-            <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
-              <div style={{
-                width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
-                background: C.maroon,
-                boxShadow: "0 2px 6px rgba(140,31,46,0.4)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-              }}>
-                <IconPrayer />
+            {/* Row 1: Service | Amount */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
+                <div style={{
+                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  background: C.maroon,
+                  boxShadow: "0 2px 6px rgba(140,31,46,0.4)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <IconPrayer />
+                </div>
+                <div>
+                  <div style={labelStyle}>Service</div>
+                  <div style={valueStyle}>{devotee.service}</div>
+                </div>
               </div>
-              <div>
-                <div style={labelStyle}>Service</div>
-                <div style={valueStyle}>{devotee.service}</div>
+              <div style={{
+                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
+                borderLeft: `1px dashed rgba(216,179,122,0.44)`,
+              }}>
+                <div style={{
+                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
+                  background: C.gold,
+                  boxShadow: "0 2px 6px rgba(201,150,46,0.4)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <IconRupee />
+                </div>
+                <div>
+                  <div style={labelStyle}>Amount</div>
+                  <div style={valueStyle}>₹ {devotee.amount}</div>
+                </div>
               </div>
             </div>
 
@@ -365,7 +380,6 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
 
             {/* Row 2: Expiry Date | Days Left */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-              {/* Expiry Date */}
               <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
@@ -380,7 +394,6 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   <div style={valueStyle}>{fmtDate(devotee.expiryDate)}</div>
                 </div>
               </div>
-              {/* Days Left */}
               <div style={{
                 display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
@@ -396,52 +409,6 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 <div>
                   <div style={labelStyle}>Days Left</div>
                   <div style={{ ...valueStyle, color: uc }}>{daysStr}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Divider */}
-            <div style={{ borderTop: `1px dashed rgba(216,179,122,0.44)`, margin: "0 28px" }} />
-
-            {/* Row 3: Amount | Thank You */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-              {/* Amount */}
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
-                <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
-                  background: C.gold,
-                  boxShadow: "0 2px 6px rgba(201,150,46,0.4)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <IconRupee />
-                </div>
-                <div>
-                  <div style={labelStyle}>Amount</div>
-                  <div style={valueStyle}>₹ {devotee.amount}</div>
-                </div>
-              </div>
-              {/* Thank You */}
-              <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
-                borderLeft: `1px dashed rgba(216,179,122,0.44)`,
-              }}>
-                <div style={{
-                  width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
-                  background: "#A85040",
-                  boxShadow: "0 2px 6px rgba(168,80,64,0.4)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <IconHeart />
-                </div>
-                <div>
-                  <div style={labelStyle}>Thank You</div>
-                  <div style={{
-                    fontFamily: "'Lora', serif",
-                    fontSize: 24, fontWeight: 400, fontStyle: "italic",
-                    color: C.darkBrown, lineHeight: 1.5,
-                  }}>
-                    Thank you for being a devoted part of our temple family.
-                  </div>
                 </div>
               </div>
             </div>
@@ -477,7 +444,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   fontFamily: "'Cinzel', serif", color: C.maroon,
                   fontSize: 28, fontWeight: 800, letterSpacing: "0.05em",
                 }}>
-                  Om Namah Shivaya
+                  Om Sri Balagurunadheeswara Namah
                 </span>
                 <LotusSmall />
               </div>
@@ -493,7 +460,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                     fontFamily: "'Cinzel', serif", color: C.maroon,
                     fontSize: 22, fontWeight: 600, letterSpacing: "0.02em",
                   }}>
-                    {settings.templeWebsite.replace(/^https?:\/\//, '')}
+                    {'www.' + settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '')}
                   </span>
                 </div>
               )}

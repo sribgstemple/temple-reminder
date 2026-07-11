@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useNavigate } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Download, Archive, MessageSquare, Check, Copy, Loader2, Image as ImageIcon, UserPlus } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Download, Archive, Loader2, Image as ImageIcon, UserPlus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useApp } from '../context/AppContext'
 import { getTemplate } from '../templates/templateConfigs'
@@ -41,8 +41,6 @@ export default function GeneratePage() {
   const [progress, setProgress] = useState(0)
   const [progressLabel, setProgressLabel] = useState('')
   const [previewIdx, setPreviewIdx] = useState(0)
-  const [copiedIdx, setCopiedIdx] = useState<number | null>(null)
-  const [editedMessages, setEditedMessages] = useState<Record<number, string>>({})
 
   const handleGenerate = useCallback(async () => {
     if (records.length === 0) return
@@ -95,19 +93,10 @@ export default function GeneratePage() {
     setProgressLabel(`Done! ${cards.filter(c => c.pngDataUrl).length} card${records.length !== 1 ? 's' : ''} generated`)
     setGeneratedCards(cards)
     setPreviewIdx(0)
-    setEditedMessages({})
     setGenerating(false)
   }, [records, settings, setGeneratedCards])
 
   const currentCard = generatedCards[previewIdx]
-  const currentMessage = editedMessages[previewIdx] ?? currentCard?.whatsappMessage ?? ''
-
-  const copyMessage = async (idx: number) => {
-    const msg = editedMessages[idx] ?? generatedCards[idx]?.whatsappMessage ?? ''
-    await navigator.clipboard.writeText(msg)
-    setCopiedIdx(idx)
-    setTimeout(() => setCopiedIdx(null), 2000)
-  }
 
   const downloadCurrent = () => {
     if (!currentCard?.pngDataUrl) return
@@ -228,27 +217,8 @@ export default function GeneratePage() {
                   </button>
                 </div>
 
-                {/* WhatsApp message + UPI link */}
+                {/* Devotee summary + UPI link */}
                 <div className="space-y-3">
-                  <div className="label flex items-center gap-2">
-                    <MessageSquare className="w-3.5 h-3.5" /> WhatsApp Message
-                  </div>
-                  <textarea
-                    value={currentMessage}
-                    onChange={e => setEditedMessages(m => ({ ...m, [previewIdx]: e.target.value }))}
-                    rows={10}
-                    className="input-field w-full resize-none text-sm leading-relaxed"
-                    style={{ fontFamily: 'inherit' }}
-                  />
-                  <button
-                    onClick={() => copyMessage(previewIdx)}
-                    className="btn-outline w-full justify-center text-sm"
-                  >
-                    {copiedIdx === previewIdx ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
-                    {copiedIdx === previewIdx ? 'Copied!' : 'Copy Message'}
-                  </button>
-
-                  {/* Devotee summary + UPI link */}
                   <div className="card p-4 text-xs space-y-1" style={{ color: '#7A5C3A' }}>
                     {[
                       ['Service', currentCard.devotee.service],
@@ -278,7 +248,7 @@ export default function GeneratePage() {
             <div className="gold-divider" />
             <div className="flex flex-wrap gap-3 items-center">
               <span className="text-sm font-semibold" style={{ color: '#6B1C1C' }}>Bulk Export:</span>
-              <button onClick={() => exportZip(generatedCards.map((c, i) => ({ ...c, whatsappMessage: editedMessages[i] ?? c.whatsappMessage })))} className="btn-gold text-sm px-4 py-2">
+              <button onClick={() => exportZip(generatedCards)} className="btn-gold text-sm px-4 py-2">
                 <Archive className="w-4 h-4" /> ZIP (all PNGs + messages)
               </button>
             </div>

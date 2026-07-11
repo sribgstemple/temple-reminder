@@ -54,7 +54,7 @@ const DEFAULT_SETTINGS: TempleSettings = {
   templePhone: '9035654006',
   templeWebsite: 'https://sribgstemple.org/',
   templeAddress: 'Rachapalyam Village (SBR Puram), Palasamudram Mandal, Chittoor District, Andhra Pradesh - 517599',
-  blessingMessage: 'May Lord Shiva bless you and your family with health, wealth, and happiness.',
+  blessingMessage: 'May Lord Sri Balagurunadheeswara bless you and your family with health, wealth, and happiness.',
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
   whatsappTemplate:
