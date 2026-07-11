@@ -444,7 +444,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   fontFamily: "'Cinzel', serif", color: C.maroon,
                   fontSize: 28, fontWeight: 800, letterSpacing: "0.05em",
                 }}>
-                  Om Sri Balagurunadheeswara Namah
+                  Om Sri Balagurunadheeshwaraya Namah
                 </span>
                 <LotusSmall />
               </div>
