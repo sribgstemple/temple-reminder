@@ -49,9 +49,9 @@ export default function SettingsPage() {
           <div className="gold-divider" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {field('Temple Name', 'templeName', { placeholder: 'Sri Balagurunadheeswara Swamy Temple' })}
-            {field('Phone', 'templePhone', { placeholder: '+91 98765 43210', type: 'tel' })}
+            {/* {field('Phone', 'templePhone', { placeholder: '+91 98765 43210', type: 'tel' })} */}
             {field('Website', 'templeWebsite', { placeholder: 'https://temple.org', type: 'url' })}
-            <div className="sm:col-span-2">
+            {/* <div className="sm:col-span-2">
               <label className="label">Address</label>
               <input
                 type="text"
@@ -60,7 +60,7 @@ export default function SettingsPage() {
                 placeholder="Full temple address"
                 className="input-field"
               />
-            </div>
+            </div> */}
           </div>
         </div>
 
