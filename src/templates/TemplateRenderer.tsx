@@ -344,9 +344,9 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 }}>
                   <IconPrayer />
                 </div>
-                <div>
+                <div style={{ minWidth: 0 }}>
                   <div style={labelStyle}>Service</div>
-                  <div style={valueStyle}>{devotee.service}</div>
+                  <div style={{ ...valueStyle, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{devotee.service}</div>
                 </div>
               </div>
               <div style={{
