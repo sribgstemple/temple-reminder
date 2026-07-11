@@ -274,10 +274,17 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             <div style={{
               fontFamily: "'Cormorant Garamond', serif",
               color: C.darkBrown,
-              fontSize: 48, fontWeight: 600, lineHeight: 1.35,
+              fontSize: 48, fontWeight: 600, lineHeight: 1.3,
             }}>
-              Namaskara{" "}
-              <span style={{ color: C.maroon, fontWeight: 800 }}>{devotee.name}</span>,
+              Namaskara,
+            </div>
+            <div style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              color: C.maroon, fontWeight: 800,
+              fontSize: 48, lineHeight: 1.25,
+              wordBreak: "break-word",
+            }}>
+              {devotee.name}
             </div>
             <div style={{
               fontFamily: "'Lora', serif",
