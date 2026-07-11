@@ -439,15 +439,12 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               }}>
                 {settings.blessingMessage}
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <LotusSmall />
-                <span style={{
-                  fontFamily: "'Cinzel', serif", color: C.maroon,
-                  fontSize: 28, fontWeight: 800, letterSpacing: "0.05em",
-                }}>
-                  Om Sri Balagurunadheeshwaraya Namah
-                </span>
-                <LotusSmall />
+              <div style={{
+                fontFamily: "'Cinzel', serif", color: C.maroon,
+                fontSize: 24, fontWeight: 800, letterSpacing: "0.04em",
+                whiteSpace: "nowrap",
+              }}>
+                Om Sri Balagurunadheeshwaraya Namah
               </div>
               {settings.templeWebsite && (
                 <div style={{ textAlign: "left", marginTop: 14 }}>
