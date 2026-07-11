@@ -198,7 +198,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           position: "relative", zIndex: 5,
           height: "100%",
           display: "flex", flexDirection: "column",
-          padding: "42px 45px 40px",
+          padding: "42px 45px 28px",
           gap: 14,
           boxSizing: "border-box",
         }}>
@@ -225,9 +225,9 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               <div style={{
                 fontFamily: "'Cinzel', serif",
                 color: C.maroon,
-                fontSize: 46, fontWeight: 900,
+                fontSize: 52, fontWeight: 900,
                 letterSpacing: "0.04em",
-                lineHeight: 1.3,
+                lineHeight: 1.25,
                 textAlign: "center",
               }}>
                 {settings.templeName}
@@ -257,7 +257,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           </div>
 
           {/* ── GREETING ── */}
-          <div style={{ textAlign: "center", flexShrink: 0 }}>
+          <div style={{ textAlign: "center", flexShrink: 0, padding: "10px 0" }}>
             {devotee.name.length <= 24 ? (
               <div style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -419,8 +419,9 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               flex: "0 0 70%", padding: "18px 26px",
               borderRight: `1px dashed rgba(216,179,122,0.5)`,
               display: "flex", flexDirection: "column",
-              justifyContent: "center", gap: 14,
+              justifyContent: "flex-start", gap: 10,
               overflow: "hidden",
+              paddingTop: 22,
             }}>
               <div style={{
                 fontFamily: "'Cormorant Garamond', serif",
@@ -437,7 +438,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 Om Sri Balagurunadheeshwaraya Namah
               </div>
               {settings.templeWebsite && (
-                <div style={{ textAlign: "left", marginTop: 14 }}>
+                <div style={{ textAlign: "left" }}>
                   <span style={{
                     fontFamily: "'Lora', serif", color: C.medBrown,
                     fontSize: 26, fontStyle: "italic",

@@ -225,7 +225,7 @@ export default function GeneratePage() {
             <div className="flex flex-wrap gap-3 items-center">
               <span className="text-sm font-semibold" style={{ color: '#6B1C1C' }}>Bulk Export:</span>
               <button onClick={() => exportZip(generatedCards)} className="btn-gold text-sm px-4 py-2">
-                <Archive className="w-4 h-4" /> ZIP (all PNGs + messages)
+                <Archive className="w-4 h-4" /> ZIP (all PNGs)
               </button>
             </div>
           </motion.div>
