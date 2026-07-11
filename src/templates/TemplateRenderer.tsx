@@ -271,21 +271,34 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
 
           {/* ── GREETING ── */}
           <div style={{ textAlign: "center", flexShrink: 0 }}>
-            <div style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              color: C.darkBrown,
-              fontSize: 48, fontWeight: 600, lineHeight: 1.3,
-            }}>
-              Namaskara,
-            </div>
-            <div style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              color: C.maroon, fontWeight: 800,
-              fontSize: 48, lineHeight: 1.25,
-              wordBreak: "break-word",
-            }}>
-              {devotee.name}
-            </div>
+            {devotee.name.length <= 24 ? (
+              <div style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                color: C.darkBrown,
+                fontSize: 48, fontWeight: 600, lineHeight: 1.3,
+              }}>
+                Namaskara,{" "}
+                <span style={{ color: C.maroon, fontWeight: 800 }}>{devotee.name}</span>
+              </div>
+            ) : (
+              <>
+                <div style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  color: C.darkBrown,
+                  fontSize: 48, fontWeight: 600, lineHeight: 1.3,
+                }}>
+                  Namaskara,
+                </div>
+                <div style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  color: C.maroon, fontWeight: 800,
+                  fontSize: 48, lineHeight: 1.25,
+                  wordBreak: "break-word",
+                }}>
+                  {devotee.name}
+                </div>
+              </>
+            )}
             <div style={{
               fontFamily: "'Lora', serif",
               color: C.medBrown,
