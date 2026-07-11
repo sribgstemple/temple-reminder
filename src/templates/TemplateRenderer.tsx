@@ -2,9 +2,8 @@ import React from "react";
 import type { DevoteeRecord, TemplateConfig, TempleSettings } from "../types";
 import godImage from "../assets/god-photo.png";
 
-// Card dimensions for PNG export
+// Card width for PNG export
 const W = 1080;
-const H = 1350;
 
 // Color palette (from user's HTML design)
 const C = {
