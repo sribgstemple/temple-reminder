@@ -20,38 +20,10 @@ export async function exportZip(cards: GeneratedCard[]): Promise<void> {
   const zip = new JSZip()
   const names = uniqueFilenames(cards)
 
-  const imageFolder = zip.folder('images')!
-  const msgFolder = zip.folder('messages')!
-
   for (let i = 0; i < cards.length; i++) {
-    const card = cards[i]
-    const name = names[i]
-    // PNG
-    const base64 = card.pngDataUrl.split(',')[1]
-    imageFolder.file(`${name}.png`, base64, { base64: true })
-    // Per-devotee message text
-    msgFolder.file(`${name}.txt`, card.whatsappMessage)
+    const base64 = cards[i].pngDataUrl.split(',')[1]
+    if (base64) zip.file(`${names[i]}.png`, base64, { base64: true })
   }
-
-  // Combined CSV
-  const csvHeader = 'Name,Mobile,Service,Expiry Date,Days Remaining,Amount,Renewal Link,WhatsApp Message\n'
-  const csvRows = cards.map(c => [
-    `"${c.devotee.name.replace(/"/g, '""')}"`,
-    c.devotee.mobile,
-    `"${c.devotee.service.replace(/"/g, '""')}"`,
-    c.devotee.expiryDate,
-    c.devotee.daysRemaining,
-    c.devotee.amount,
-    c.devotee.renewalLink,
-    `"${c.whatsappMessage.replace(/"/g, '""').replace(/\n/g, '\\n')}"`,
-  ].join(',')).join('\n')
-  zip.file('messages.csv', csvHeader + csvRows)
-
-  // Combined TXT
-  const txt = cards.map((c, i) =>
-    `${'─'.repeat(60)}\n${names[i]} · ${c.devotee.mobile}\n${'─'.repeat(60)}\n${c.whatsappMessage}\n`
-  ).join('\n')
-  zip.file('all-messages.txt', txt)
 
   const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' })
   const timestamp = new Date().toISOString().slice(0, 10)
