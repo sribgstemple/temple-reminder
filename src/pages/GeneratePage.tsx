@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ChevronLeft, ChevronRight, Download, Archive, MessageSquare, Check, Copy, Loader2, Image as ImageIcon } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { ChevronLeft, ChevronRight, Download, Archive, MessageSquare, Check, Copy, Loader2, Image as ImageIcon, UserPlus } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useApp } from '../context/AppContext'
 import { getTemplate } from '../templates/templateConfigs'
@@ -35,6 +36,7 @@ function buildWhatsAppMessage(template: string, devotee: DevoteeRecord, settings
 
 export default function GeneratePage() {
   const { records, generatedCards, setGeneratedCards, settings } = useApp()
+  const navigate = useNavigate()
   const [generating, setGenerating] = useState(false)
   const [progress, setProgress] = useState(0)
   const [progressLabel, setProgressLabel] = useState('')
@@ -120,9 +122,12 @@ export default function GeneratePage() {
         <div className="card text-center py-12">
           <ImageIcon className="w-12 h-12 mx-auto mb-4 opacity-30" style={{ color: '#D4AF37' }} />
           <div className="text-base font-semibold mb-2" style={{ color: '#6B1C1C' }}>No devotees loaded</div>
-          <p className="text-sm opacity-70" style={{ color: '#7A5C3A' }}>
+          <p className="text-sm opacity-70 mb-5" style={{ color: '#7A5C3A' }}>
             Upload an Excel file or add a devotee manually to get started.
           </p>
+          <button onClick={() => navigate('/single')} className="btn-gold inline-flex items-center gap-2 mx-auto">
+            <UserPlus className="w-4 h-4" /> Add Devotee
+          </button>
         </div>
       </div>
     )
