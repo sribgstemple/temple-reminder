@@ -298,24 +298,15 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
 
           {/* ── RENEWAL STATUS BADGE ── */}
           <div style={{ display: "flex", alignItems: "center", gap: 18, flexShrink: 0 }}>
-            {/* Teal circle with bell icon */}
+            {/* Teal pill badge: bell + Renewal */}
             <div style={{
-              width: 82, height: 82, borderRadius: "50%",
-              background: "#1B5E6E", flexShrink: 0,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 2px 8px rgba(27,94,110,0.35)",
-              fontSize: 36,
-            }}>
-              🔔
-            </div>
-            {/* Teal pill badge */}
-            <div style={{
-              display: "inline-flex", alignItems: "center",
+              display: "inline-flex", alignItems: "center", gap: 12,
               background: "linear-gradient(135deg, #1B5E6E, #2A7F8F)",
-              borderRadius: 50, padding: "10px 28px",
+              borderRadius: 50, padding: "14px 28px 14px 18px",
               boxShadow: "0 3px 12px rgba(27,94,110,0.35)",
               flexShrink: 0,
             }}>
+              <span style={{ fontSize: 34, lineHeight: 1 }}>🔔</span>
               <span style={{
                 fontFamily: "'Cinzel', serif", color: "#FFFFFF",
                 fontSize: 28, fontWeight: 800, letterSpacing: "0.06em",
