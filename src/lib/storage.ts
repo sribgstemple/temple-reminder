@@ -58,7 +58,7 @@ const DEFAULT_SETTINGS: TempleSettings = {
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
   whatsappTemplate:
-    'Namaste {{name}}! 🙏\n\nYour *{{service}}* service at {{templeName}} is expiring on *{{expiryDate}}* ({{daysRemaining}} days remaining).\n\nRenewal Amount: *₹{{amount}}*\n\n🔱 Pay Seva Amount via UPI:\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&am={{amount}}&mam={{amount}}&cu=INR\n\n{{blessingMessage}} 🔱\n\n– {{templeName}}',
+    '🙏 Namaskara {{name}},\n\nPlease find your personalized Seva Renewal Reminder from Sri Balagurunadheeswara Swamy Temple attached to this message.\n\nKindly review the reminder card for your seva details and renewal information.\n\nIf you wish to pay directly through a UPI app, tap the link below:\n\n🔱 UPI Payment\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&am={{amount}}&mam={{amount}}&cu=INR\n\nIf you have already renewed your seva, please ignore this reminder.\n\nMay Lord Balagurunadheeswara bless you and your family with health, happiness, and prosperity.\n\nOm Namah Shivaya 🙏',
 }
 
 export function loadSettings(): TempleSettings {
@@ -66,8 +66,10 @@ export function loadSettings(): TempleSettings {
     const raw = localStorage.getItem(SETTINGS_KEY)
     if (!raw) return { ...DEFAULT_SETTINGS }
     const saved = JSON.parse(raw)
-    // Migrate old broken UPI URL in whatsapp template
-    if (saved.whatsappTemplate) {
+    // Migrate old WhatsApp template to new format
+    if (saved.whatsappTemplate?.startsWith('Namaste {{name}}')) {
+      saved.whatsappTemplate = DEFAULT_SETTINGS.whatsappTemplate
+    } else if (saved.whatsappTemplate) {
       saved.whatsappTemplate = saved.whatsappTemplate
         .replace('pn=SRI BALAGURUNADHEESWARA TRUST', 'pn=SRI%20BALAGURUNADHEESWARA%20TRUST')
         .replace('&am=null&mam=null&', '&am={{amount}}&mam={{amount}}&')
