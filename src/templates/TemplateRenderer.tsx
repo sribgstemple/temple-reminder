@@ -297,7 +297,15 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           </div>
 
           {/* ── RENEWAL STATUS BADGE ── */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 18, flexShrink: 0 }}>
+          <div style={{
+            flexShrink: 0,
+            borderRadius: 35,
+            border: `3px solid ${C.borderGold}`,
+            background: "linear-gradient(155deg, #FFFCF5, #F5EDD8)",
+            boxShadow: "0 3px 18px rgba(201,150,46,0.12)",
+            padding: "18px 26px",
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 18,
+          }}>
             {/* Teal pill badge: bell + Renewal */}
             <div style={{
               display: "inline-flex", alignItems: "center", gap: 12,
