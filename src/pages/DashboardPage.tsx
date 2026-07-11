@@ -5,20 +5,20 @@ import { motion } from 'framer-motion'
 
 const actions = [
   {
-    to: '/upload',
-    icon: Upload,
-    label: 'Upload Excel',
-    sub: 'Batch import from spreadsheet',
+    to: '/single',
+    icon: UserPlus,
+    label: 'Add Single Devotee',
+    sub: 'Quick manual entry',
     primary: true,
     color: '#6B1C1C',
     bg: 'linear-gradient(135deg, rgba(107,28,28,0.08) 0%, rgba(212,175,55,0.06) 100%)',
     border: 'rgba(107,28,28,0.2)',
   },
   {
-    to: '/single',
-    icon: UserPlus,
-    label: 'Add Single Devotee',
-    sub: 'Quick manual entry',
+    to: '/upload',
+    icon: Upload,
+    label: 'Upload Excel',
+    sub: 'Batch import from spreadsheet',
     primary: true,
     color: '#B8860B',
     bg: 'linear-gradient(135deg, rgba(212,175,55,0.1) 0%, rgba(212,175,55,0.04) 100%)',
