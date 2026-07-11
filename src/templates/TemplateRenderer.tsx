@@ -433,7 +433,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               <div style={{
                 fontFamily: "'Cinzel', serif", color: C.maroon,
                 fontSize: 26, fontWeight: 800, letterSpacing: "0.04em",
-                whiteSpace: "nowrap", marginTop: 36,
+                whiteSpace: "nowrap", marginTop: 42,
               }}>
                 ॥ Om Sri Balagurunadheeshwaraya Namah ॥
               </div>
