@@ -298,16 +298,26 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
 
           {/* ── RENEWAL STATUS BADGE ── */}
           <div style={{ display: "flex", alignItems: "center", gap: 18, flexShrink: 0 }}>
-            {/* Gold pill badge */}
+            {/* Teal circle with bell icon */}
             <div style={{
-              display: "inline-flex", alignItems: "center", gap: 10,
-              background: "linear-gradient(135deg, #D4AF37, #F0C040)",
-              borderRadius: 50, padding: "10px 28px",
-              boxShadow: "0 3px 12px rgba(201,150,46,0.35)",
+              width: 82, height: 82, borderRadius: "50%",
+              background: "#1B5E6E", flexShrink: 0,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: "0 2px 8px rgba(27,94,110,0.35)",
+              fontSize: 36,
             }}>
-              <span style={{ fontSize: 30 }}>🔔</span>
+              🔔
+            </div>
+            {/* Teal pill badge */}
+            <div style={{
+              display: "inline-flex", alignItems: "center",
+              background: "linear-gradient(135deg, #1B5E6E, #2A7F8F)",
+              borderRadius: 50, padding: "10px 28px",
+              boxShadow: "0 3px 12px rgba(27,94,110,0.35)",
+              flexShrink: 0,
+            }}>
               <span style={{
-                fontFamily: "'Cinzel', serif", color: "#5C2A00",
+                fontFamily: "'Cinzel', serif", color: "#FFFFFF",
                 fontSize: 28, fontWeight: 800, letterSpacing: "0.06em",
               }}>
                 Renewal
@@ -316,6 +326,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             <div style={{
               fontFamily: "'Lora', serif",
               color: C.darkBrown, fontSize: 31, lineHeight: 1.5,
+              whiteSpace: "nowrap",
             }}>
               Your <strong style={{ fontFamily: "'Cinzel', serif", color: C.maroon }}>Seva / Service</strong> is due for renewal.
             </div>
@@ -330,11 +341,10 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             boxShadow: "0 3px 18px rgba(201,150,46,0.12)",
             overflow: "hidden",
             display: "flex", flexDirection: "column", justifyContent: "space-evenly",
-            padding: "14px 0",
           }}>
             {/* Row 1: Service | Amount */}
             <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "18px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.maroon,
@@ -349,7 +359,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 </div>
               </div>
               <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
+                display: "flex", alignItems: "center", gap: 20, padding: "18px 22px",
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
                 <div style={{
@@ -372,7 +382,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
 
             {/* Row 2: Expiry Date | Days Left */}
             <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "12px 22px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "18px 22px" }}>
                 <div style={{
                   width: 78, height: 78, borderRadius: "50%", flexShrink: 0,
                   background: C.gold,
@@ -387,7 +397,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 </div>
               </div>
               <div style={{
-                display: "flex", alignItems: "center", gap: 20, padding: "12px 22px",
+                display: "flex", alignItems: "center", gap: 20, padding: "18px 22px",
                 borderLeft: `1px dashed rgba(216,179,122,0.44)`,
               }}>
                 <div style={{
