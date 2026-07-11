@@ -58,7 +58,7 @@ const DEFAULT_SETTINGS: TempleSettings = {
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
   whatsappTemplate:
-    '🙏 Namaskara {{name}},\n\nYour personalized Seva Renewal Reminder is attached. Kindly review it and complete your renewal at your convenience.\n\n🔱 UPI Payment:\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI BALAGURUNADHEESWARA TRUST&mc=8398&am={{amount}}&mam={{amount}}&cu=INR\n\nIf you have already renewed your seva, please ignore this message.\n\nOm Namah Shivaya 🙏',
+    '🙏 Namaskara {{name}},\n\nYour *Seva Renewal Reminder* is attached. Kindly review it and complete your renewal at your convenience.\n\n🔱 UPI Payment:\nupi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI BALAGURUNADHEESWARA TRUST&mc=8398&am={{amount}}&mam={{amount}}&cu=INR\n\nIf you have already renewed your seva, please ignore this message.\n\nMay Lord Balagurunadheeswara bless you and your family with health, happiness, and prosperity.\n\nOm Namah Shivaya 🙏',
 }
 
 export function loadSettings(): TempleSettings {
@@ -69,7 +69,8 @@ export function loadSettings(): TempleSettings {
     // Migrate old WhatsApp templates to new format
     if (
       saved.whatsappTemplate?.startsWith('Namaste {{name}}') ||
-      saved.whatsappTemplate?.includes('Please find your personalized')
+      saved.whatsappTemplate?.includes('Please find your personalized') ||
+      saved.whatsappTemplate?.includes('Your personalized Seva Renewal')
     ) {
       saved.whatsappTemplate = DEFAULT_SETTINGS.whatsappTemplate
     }
