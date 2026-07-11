@@ -54,7 +54,7 @@ const DEFAULT_SETTINGS: TempleSettings = {
   templePhone: '9035654006',
   templeWebsite: 'https://sribgstemple.org/',
   templeAddress: 'Rachapalyam Village (SBR Puram), Palasamudram Mandal, Chittoor District, Andhra Pradesh - 517599',
-  blessingMessage: 'May Lord Sri Balagurunadheeswara Swamy bless you and your family with health, wealth, and happiness.',
+  blessingMessage: 'May Lord Sri Balagurunadheeswara Swamy bless you and your family with health, happiness, and prosperity.',
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
   whatsappTemplate:
@@ -67,7 +67,7 @@ export function loadSettings(): TempleSettings {
     if (!raw) return { ...DEFAULT_SETTINGS }
     const saved = JSON.parse(raw)
     // Migrate old blessing messages
-    if (saved.blessingMessage && !saved.blessingMessage.includes('Swamy')) {
+    if (saved.blessingMessage && (!saved.blessingMessage.includes('Swamy') || saved.blessingMessage.includes('wealth'))) {
       saved.blessingMessage = DEFAULT_SETTINGS.blessingMessage
     }
     // Migrate old WhatsApp templates to new format

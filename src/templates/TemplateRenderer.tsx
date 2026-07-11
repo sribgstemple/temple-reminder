@@ -296,29 +296,28 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
             </div>
           </div>
 
-          {/* ── RENEWAL REMINDER BANNER ── */}
-          <div style={{
-            background: "linear-gradient(135deg, #FAF2E2, #F5EDD8)",
-            border: `1px solid rgba(216,179,122,0.33)`,
-            borderRadius: 30, padding: "12px 26px",
-            display: "flex", alignItems: "center", gap: 22,
-            flexShrink: 0,
-          }}>
-            {/* Calendar badge */}
+          {/* ── RENEWAL STATUS BADGE ── */}
+          <div style={{ display: "flex", alignItems: "center", gap: 18, flexShrink: 0 }}>
+            {/* Gold pill badge */}
             <div style={{
-              width: 82, height: 82, borderRadius: "50%",
-              background: "#1B5E6E", flexShrink: 0,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: "0 2px 8px rgba(27,94,110,0.35)",
+              display: "inline-flex", alignItems: "center", gap: 10,
+              background: "linear-gradient(135deg, #D4AF37, #F0C040)",
+              borderRadius: 50, padding: "10px 28px",
+              boxShadow: "0 3px 12px rgba(201,150,46,0.35)",
             }}>
-              <IconCalendar />
+              <span style={{ fontSize: 30 }}>🔔</span>
+              <span style={{
+                fontFamily: "'Cinzel', serif", color: "#5C2A00",
+                fontSize: 28, fontWeight: 800, letterSpacing: "0.06em",
+              }}>
+                Renewal
+              </span>
             </div>
             <div style={{
               fontFamily: "'Lora', serif",
-              color: C.darkBrown, fontSize: 33, lineHeight: 1.65,
+              color: C.darkBrown, fontSize: 31, lineHeight: 1.5,
             }}>
-              Your Seva / Service is due for{" "}
-              <strong style={{ fontFamily: "'Cinzel', serif", color: C.maroon }}>renewal</strong>.
+              Your <strong style={{ fontFamily: "'Cinzel', serif", color: C.maroon }}>Seva / Service</strong> is due for renewal.
             </div>
           </div>
 
@@ -400,7 +399,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                   <IconClock />
                 </div>
                 <div>
-                  <div style={labelStyle}>Days Left</div>
+                  <div style={labelStyle}>Days Remaining</div>
                   <div style={{ ...valueStyle, color: uc }}>{daysStr}</div>
                 </div>
               </div>
@@ -444,13 +443,13 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                     fontFamily: "'Lora', serif", color: C.medBrown,
                     fontSize: 22, fontStyle: "italic",
                   }}>
-                    For more details visit{" "}
+                    For more details visit:{" "}
                   </span>
                   <span style={{
                     fontFamily: "'Cinzel', serif", color: C.maroon,
                     fontSize: 22, fontWeight: 600, letterSpacing: "0.02em",
                   }}>
-                    {'www.' + settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '')}
+                    {settings.templeWebsite.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}
                   </span>
                 </div>
               )}
@@ -467,7 +466,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 fontSize: 22, fontWeight: 700,
                 letterSpacing: "0.12em", textTransform: "uppercase", textAlign: "center",
               }}>
-                RENEW HERE
+                SCAN TO RENEW
               </div>
               <div style={{
                 padding: 10, background: "white", borderRadius: 18,
