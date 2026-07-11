@@ -51,9 +51,9 @@ const SETTINGS_KEY = 'sbgst-temple-settings'
 
 const DEFAULT_SETTINGS: TempleSettings = {
   templeName: 'Sri Balagurunadheeswara Swamy Temple',
-  templePhone: '',
-  templeWebsite: '',
-  templeAddress: '',
+  templePhone: '9035654006',
+  templeWebsite: 'https://sribgstemple.org/',
+  templeAddress: 'Rachapalyam Village (SBR Puram), Palasamudram Mandal, Chittoor District, Andhra Pradesh - 517599',
   blessingMessage: 'May Lord Shiva bless you and your family with health, wealth, and happiness.',
   templeLogoBase64: undefined,
   templeImageBase64: undefined,
