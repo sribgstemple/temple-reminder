@@ -207,7 +207,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           <div style={{ display: "flex", alignItems: "flex-start", gap: 30, flexShrink: 0 }}>
             {/* Deity / Temple logo */}
             <div style={{
-              flexShrink: 0, width: 175, height: 220,
+              flexShrink: 0, width: 210, height: 220,
               borderRadius: 25,
               border: `4px solid ${C.borderGold}`,
               boxShadow: "0 4px 14px rgba(201,150,46,0.28)",
