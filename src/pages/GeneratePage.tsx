@@ -13,13 +13,13 @@ import { saveAs } from 'file-saver'
 import type { DevoteeRecord, GeneratedCard, TempleSettings } from '../types'
 
 const UPI_BASE =
-  'upi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&mc=8398&cu=INR'
+  'upi://pay?pa=SRIBALAGURUNADHEESWARA@rbl&pn=SRI%20BALAGURUNADHEESWARA%20TRUST&cu=INR'
 
 function upiUrl(amount: string): string {
   const amt = parseFloat(amount)
   return isNaN(amt) || amt <= 0
-    ? `${UPI_BASE}&am=null&mam=null`
-    : `${UPI_BASE}&am=${amt}&mam=${amt}`
+    ? UPI_BASE
+    : `${UPI_BASE}&am=${amt}`
 }
 
 function buildWhatsAppMessage(template: string, devotee: DevoteeRecord, settings: TempleSettings): string {
