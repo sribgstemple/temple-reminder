@@ -20,8 +20,8 @@ export default defineConfig({
         'om-icon.svg',
       ],
       manifest: {
-        name: 'SBGS Temple Reminder Studio',
-        short_name: 'Temple Cards',
+        name: 'SBG Temple Reminder',
+        short_name: 'SBG Reminder',
         description:
           'Generate personalized devotee renewal reminder cards for Sri Balagurunadheeswara Swamy Temple.',
         theme_color: '#8B1A1A',
