@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Settings, Save, Eye, EyeOff } from 'lucide-react'
+import { Settings, Save } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useApp } from '../context/AppContext'
 import type { TempleSettings } from '../types'
@@ -8,7 +8,7 @@ export default function SettingsPage() {
   const { settings, updateSettings } = useApp()
   const [form, setForm] = useState<TempleSettings>({ ...settings })
   const [saved, setSaved] = useState(false)
-  const [showTemplate, setShowTemplate] = useState(false)
+
 
   const set = (key: keyof TempleSettings) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(f => ({ ...f, [key]: e.target.value }))
@@ -80,7 +80,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* WhatsApp template */}
+        {/* WhatsApp template — commented out
         <div className="card space-y-4">
           <div className="flex items-center justify-between">
             <div className="section-title text-base">WhatsApp Message Template</div>
@@ -112,6 +112,7 @@ export default function SettingsPage() {
             </div>
           )}
         </div>
+        */}
 
         {/* Save button */}
         <motion.button
