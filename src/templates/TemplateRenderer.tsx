@@ -77,15 +77,6 @@ const IconRupee = () => (
   </svg>
 );
 
-
-const LotusSmall = () => (
-  <svg width="40" height="40" viewBox="0 0 20 20" fill="none">
-    <path d="M10 18C10 18 5 13.5 5 9C5 6.5 7 5 9 5.8C9 3.5 10 2 10 2C10 2 11 3.5 11 5.8C13 5 15 6.5 15 9C15 13.5 10 18 10 18Z" fill={C.gold} opacity="0.9"/>
-    <path d="M10 18C10 18 2.5 12.5 3 7.5C3.5 5 6 4 7.5 5.5C6.5 7 7.5 10 10 12" fill={C.gold} opacity="0.32"/>
-    <path d="M10 18C10 18 17.5 12.5 17 7.5C16.5 5 14 4 12.5 5.5C13.5 7 12.5 10 10 12" fill={C.gold} opacity="0.32"/>
-  </svg>
-);
-
 // Shared label style for info-grid cells
 const labelStyle: React.CSSProperties = {
   fontFamily: "'Inter', sans-serif",
