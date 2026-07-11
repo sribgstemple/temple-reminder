@@ -217,7 +217,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
           <div style={{ display: "flex", alignItems: "flex-start", gap: 30, flexShrink: 0 }}>
             {/* Deity / Temple logo */}
             <div style={{
-              flexShrink: 0, width: 175,
+              flexShrink: 0, width: 175, height: 220,
               borderRadius: 25,
               border: `4px solid ${C.borderGold}`,
               boxShadow: "0 4px 14px rgba(201,150,46,0.28)",
@@ -227,7 +227,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
               <img
                 src={deityImg}
                 alt="Temple deity"
-                style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }}
+                style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
               />
             </div>
             {/* Temple name + subtitle + divider */}
@@ -248,6 +248,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
                 fontSize: 26, letterSpacing: "0.12em",
                 textTransform: "uppercase",
                 marginTop: 10, fontWeight: 500,
+                textAlign: "center",
               }}>
                 A Gentle Seva Reminder
               </div>
@@ -332,7 +333,7 @@ const TemplateRenderer = React.forwardRef<HTMLDivElement, Props>(
 
           {/* ── INFO GRID ── */}
           <div style={{
-            flex: 1,
+            flexShrink: 0,
             borderRadius: 35,
             border: `3px solid ${C.borderGold}`,
             background: "linear-gradient(155deg, #FFFCF5, #F5EDD8)",
